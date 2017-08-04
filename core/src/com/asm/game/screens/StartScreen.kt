@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.viewport.FitViewport
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const
 import ktx.app.KtxScreen
 
 
@@ -26,10 +27,13 @@ class StartScreen(var mGame: AsmGdxGame) : KtxScreen {
     lateinit var mViewport: FitViewport
     lateinit var mStage: Stage
     lateinit var mTable: Table
-
+    lateinit var mBround: Texture
     init {
         initScreen()
         createScene()
+        mBround = Texture(Gdx.files.internal("StartScreen/MenuBackground.png"))
+
+
     }
 
     private fun initScreen() {
@@ -113,11 +117,17 @@ class StartScreen(var mGame: AsmGdxGame) : KtxScreen {
 
         Gdx.gl.glClearColor(0F, 0F, 0F, 1F)
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT or GL30.GL_DEPTH_BUFFER_BIT)
+        Gdx.gl.glEnable(GL30.GL_BLEND)
 
+        mGame.mSpriteBatch.begin()
 
+        mGame.mSpriteBatch.draw(mBround,0f,0f, Constants.GAME_WIDTH, Constants.GAME_HEIGHT)
+        mGame.mSpriteBatch.end()
+        Gdx.gl.glEnable(GL30.GL_BLEND)
         mGame.mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled)
-        mGame.mShapeRenderer.color = GameColors.START_BACKGROUND
-        mGame.mShapeRenderer.rect(0F, 0F, Constants.GAME_WIDTH, Constants.GAME_HEIGHT)
+        mGame.mShapeRenderer.color = GameColors.START_OVERLAY
+        mGame.mShapeRenderer.rect(0f,0f,Constants.GAME_WIDTH, Constants.GAME_HEIGHT)
+
         mGame.mShapeRenderer.end()
 
         mStage.draw()
