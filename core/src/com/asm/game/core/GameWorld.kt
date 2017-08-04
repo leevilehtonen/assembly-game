@@ -10,7 +10,6 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
-import com.sun.corba.se.impl.orbutil.closure.Constant
 import ktx.collections.gdxListOf
 
 class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
@@ -37,7 +36,7 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
     }
 
     private fun createBackground(){
-        background = Background(Constants.DEFAULT_SPEED)
+        background = Background(mGame, Constants.DEFAULT_SPEED)
 
     }
 

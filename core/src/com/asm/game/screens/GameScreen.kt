@@ -55,11 +55,13 @@ class GameScreen(val mGame: AsmGdxGame) : KtxScreen {
 
     override fun render(delta: Float) {
         super.render(delta)
-        mGameWorld.update(delta)
-        mGameRenderer.render()
+        if (mGame.mAssetLoader.mAssetManager.update()) {
+            mGameWorld.update(delta)
+            mGameRenderer.render()
 
-        mStage.draw()
-        mStage.act()
+            mStage.draw()
+            mStage.act()
+        }
     }
 
     override fun resize(width: Int, height: Int) {

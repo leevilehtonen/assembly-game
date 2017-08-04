@@ -1,36 +1,24 @@
 package com.asm.game.objects
 
+import com.asm.game.AsmGdxGame
 import com.asm.game.utils.Constants
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.TextureRegion
 import ktx.collections.gdxArrayOf
 
-class Background(val speed: Float) {
+class Background(val mGame: AsmGdxGame, val speed: Float) {
     val layers = gdxArrayOf<Layer>()
 
     init {
-        val foreTexture = Texture(Gdx.files.internal("Background/ForeHills.png"))
-        val forestTexture = Texture(Gdx.files.internal("Background/Forest.png"))
-        val floorTexture = Texture(Gdx.files.internal("Background/Floor.png"))
-        val roofTexture = Texture(Gdx.files.internal("Background/Roof.png"))
-
-        foreTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat)
-        foreTexture.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear)
-
-        forestTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat)
-        forestTexture.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear)
-
-        floorTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat)
-        floorTexture.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear)
-
-        roofTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat)
-        roofTexture.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear)
+        val foreTexture = TextureRegion(mGame.mAssetLoader.mBackgroundAtlas.findRegion("ForeHills"))
+        val forestTexture = TextureRegion(mGame.mAssetLoader.mBackgroundAtlas.findRegion("Forest"))
+        val floorTexture = TextureRegion(mGame.mAssetLoader.mBackgroundAtlas.findRegion("Floor"))
+        val roofTexture = TextureRegion(mGame.mAssetLoader.mBackgroundAtlas.findRegion("Roof"))
 
 
-        val foreY = 80f
-        val forestY = 120f
-        val floorY = 0f
-        val roofY = Constants.GAME_HEIGHT - roofTexture.height
+        val foreY = -20f
+        val forestY = 20f
+        val floorY = -100f
+        val roofY = Constants.GAME_HEIGHT - roofTexture.regionHeight + 100f
 
 
         val foreLayer = Layer(0.5f * speed, foreTexture, foreY)
