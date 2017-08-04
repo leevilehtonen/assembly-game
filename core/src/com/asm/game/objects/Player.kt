@@ -11,6 +11,8 @@ import com.badlogic.gdx.physics.box2d.Body
 class Player(val body: Body, val texture: Texture) : PhysicsGameObject(texture) {
 
     var playerState: PlayerState = PlayerState.POSITION_BOTTOM
+    var lastState: PlayerState = PlayerState.POSITION_BOTTOM
+    var rotate: Boolean = false
 
     override fun update(delta: Float) {
         sprite.setPosition(Constants.BOX_TO_WORLD * body.position.x - sprite.width / 2, Constants.BOX_TO_WORLD * body.position.y - sprite.height / 2)
@@ -21,11 +23,31 @@ class Player(val body: Body, val texture: Texture) : PhysicsGameObject(texture) 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && playerState != PlayerState.POSITION_INAIR) {
             gravityFlip()
         }
+        if (rotate) {
+            val addition: Float = delta * Constants.ROTATE_SPEED
+            if (lastState == PlayerState.POSITION_BOTTOM) {
+                if (sprite.rotation + addition > 180f) {
+                    sprite.rotation = 180f
+                    rotate = false
+                } else {
+                    sprite.rotation += addition
+                }
+            } else if (lastState == PlayerState.POSITION_TOP) {
+                if (sprite.rotation - addition < 0f) {
+                    sprite.rotation = 0f
+                    rotate = false
+                } else {
+                    sprite.rotation -= addition
+                }
+            }
+        }
     }
 
     fun gravityFlip() {
         body.world.gravity = body.world.gravity.cpy().scl(-1f)
+        lastState = playerState
         playerState = PlayerState.POSITION_INAIR
+        rotate = true
 
     }
 

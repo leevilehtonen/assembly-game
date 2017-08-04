@@ -16,7 +16,7 @@ class PhysicsWorld(val mGameWorld: GameWorld) {
     }
 
     private fun initPhyicsWorld() {
-        world = createWorld(Vector2(0F, -25F), false)
+        world = createWorld(Vector2(0F, -10F), false)
         world.setContactListener(object : ContactListener {
             override fun endContact(contact: Contact) {
 
