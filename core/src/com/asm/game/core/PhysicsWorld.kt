@@ -1,6 +1,7 @@
 package com.asm.game.core
 
 import com.asm.game.utils.Constants
+import com.asm.game.utils.PlayerState
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.*
 import ktx.box2d.body
@@ -18,22 +19,24 @@ class PhysicsWorld(val mGameWorld: GameWorld) {
         world = createWorld(Vector2(0F, -25F), false)
         world.setContactListener(object : ContactListener {
             override fun endContact(contact: Contact) {
+
             }
 
             override fun beginContact(contact: Contact) {
                 val fixtureA = contact.fixtureA
                 val fixtureB = contact.fixtureB
 
-                println("Contact")
 
                 if ((fixtureA.filterData.categoryBits.toInt() == Constants.PLAYER_PHYSICS_TAG
-                        && fixtureB.filterData.categoryBits.toInt() == Constants.BORDER_PHYSICS_TAG)
+                        && fixtureB.filterData.categoryBits.toInt() == Constants.BORDER_BOTTOM_PHYSICS_TAG)
                         || (fixtureB.filterData.categoryBits.toInt() == Constants.PLAYER_PHYSICS_TAG
-                        && fixtureA.filterData.categoryBits.toInt() == Constants.BORDER_PHYSICS_TAG)) {
-
-                    println("Player touched ground")
-                    mGameWorld.player.flipped = false
-                    mGameWorld.player.jumped = false
+                        && fixtureA.filterData.categoryBits.toInt() == Constants.BORDER_BOTTOM_PHYSICS_TAG)) {
+                    mGameWorld.player.playerState = PlayerState.POSITION_BOTTOM
+                } else if ((fixtureA.filterData.categoryBits.toInt() == Constants.PLAYER_PHYSICS_TAG
+                        && fixtureB.filterData.categoryBits.toInt() == Constants.BORDER_TOP_PHYSICS_TAG)
+                        || (fixtureB.filterData.categoryBits.toInt() == Constants.PLAYER_PHYSICS_TAG
+                        && fixtureA.filterData.categoryBits.toInt() == Constants.BORDER_TOP_PHYSICS_TAG)) {
+                    mGameWorld.player.playerState = PlayerState.POSITION_TOP
                 }
             }
 

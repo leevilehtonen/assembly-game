@@ -8,5 +8,6 @@ object Constants {
     const val DEFAULT_SPEED = 400f
     const val JUMP_AMOUNT = 20f
     const val PLAYER_PHYSICS_TAG = 0x0001
-    const val BORDER_PHYSICS_TAG = 0x0002
+    const val BORDER_BOTTOM_PHYSICS_TAG = 0x0002
+    const val BORDER_TOP_PHYSICS_TAG = 0x0003
 }

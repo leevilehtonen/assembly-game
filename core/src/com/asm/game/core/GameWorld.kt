@@ -48,8 +48,8 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
     }
 
     fun createMap() {
-        physicsWorld.createStaticBody(Vector2(1024F, 69F), Vector2(Constants.GAME_WIDTH / 2, 35F), 40F, Constants.BORDER_PHYSICS_TAG)
-        physicsWorld.createStaticBody(Vector2(1024F, 69F), Vector2(Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT - 35F), 40F, Constants.BORDER_PHYSICS_TAG)
+        physicsWorld.createStaticBody(Vector2(1024F, 69F), Vector2(Constants.GAME_WIDTH / 2, 35F), 40F, Constants.BORDER_BOTTOM_PHYSICS_TAG)
+        physicsWorld.createStaticBody(Vector2(1024F, 69F), Vector2(Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT - 35F), 40F, Constants.BORDER_TOP_PHYSICS_TAG)
 
     }
 
