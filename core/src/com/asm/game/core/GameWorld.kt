@@ -26,7 +26,7 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
     }
 
     private fun initWorld() {
-        physicsWorld = PhysicsWorld()
+        physicsWorld = PhysicsWorld(this)
     }
 
     private fun createObjects() {
@@ -42,13 +42,15 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
 
     private fun createPlayer() {
         val playerTexture: Texture = Texture(Gdx.files.internal("GameScreen/Squid.png"))
-        val playerBody: Body = physicsWorld.createDynamicBody(Vector2(playerTexture.width.toFloat(), playerTexture.height.toFloat()), Vector2(500f, 500f), 30f)
+        val playerBody: Body = physicsWorld.createDynamicBody(Vector2(playerTexture.width.toFloat(), playerTexture.height.toFloat()), Vector2(500f, 500f), 30f, Constants.PLAYER_PHYSICS_TAG)
         player = Player(playerBody, playerTexture)
         objects + player
     }
 
     fun createMap() {
-        physicsWorld.createStaticBody(Vector2(1024F, 32F), Vector2(Constants.GAME_WIDTH / 2, 16F), 40F)
+        physicsWorld.createStaticBody(Vector2(1024F, 69F), Vector2(Constants.GAME_WIDTH / 2, 35F), 40F, Constants.BORDER_PHYSICS_TAG)
+        physicsWorld.createStaticBody(Vector2(1024F, 69F), Vector2(Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT - 35F), 40F, Constants.BORDER_PHYSICS_TAG)
+
     }
 
     fun update(delta: Float) {

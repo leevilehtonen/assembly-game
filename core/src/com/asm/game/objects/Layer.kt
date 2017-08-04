@@ -30,20 +30,14 @@ class Layer(val speed: Float, val textureRegion: TextureRegion, val y: Float) {
     }
 
     fun update(delta: Float) {
-        sprites.forEach {
-            it.x -= speed * delta
-            if (it.x <= minX) it.x += it.width * 2f
-        }
-        if (sprite1.x < sprite2.x) {
-            val distance = Math.abs((sprite1.x + sprite1.width) - sprite2.x)
-            if (distance >= 1f) {
-                sprite2.x = sprite1.x + sprite1.width
-            }
-        } else {
-            val distance = Math.abs(sprite1.x - (sprite2.x + sprite2.width))
-            if (distance >= 1f) {
-                sprite1.x = sprite2.x + sprite2.width
-            }
+        sprite1.x -= speed * delta
+        sprite2.x -= speed * delta
+
+        if (sprite1.x <= minX) {
+            sprite1.x = sprite2.x + sprite2.width - (speed * delta)
+            var temp = sprite1
+            sprite1 = sprite2
+            sprite2 = temp
         }
     }
 }
