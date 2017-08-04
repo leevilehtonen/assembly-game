@@ -6,6 +6,7 @@ import com.asm.game.utils.AssetLoader
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import com.sun.javafx.applet.Splash
 import ktx.app.KtxGame
 
 class AsmGdxGame : KtxGame<Screen>() {
@@ -23,8 +24,8 @@ class AsmGdxGame : KtxGame<Screen>() {
         mAssetLoader = AssetLoader()
         addScreen(SplashScreen(this))
         mAssetLoader.loadBackground()
-        addScreen(GameScreen(this))
-        setScreen<GameScreen>()
+        //addScreen(GameScreen(this))
+        setScreen<SplashScreen>()
     }
 
     override fun dispose() {

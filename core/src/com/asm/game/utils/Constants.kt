@@ -5,5 +5,5 @@ object Constants {
     const val WORLD_TO_BOX: Float = 1F / 100F
     const val GAME_HEIGHT = 576f
     const val GAME_WIDTH = 1024f
-    const val DEFAULT_SPEED = 200f
+    const val DEFAULT_SPEED = 400f
 }

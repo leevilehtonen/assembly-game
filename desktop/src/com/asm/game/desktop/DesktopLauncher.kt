@@ -17,7 +17,7 @@ object DesktopLauncher {
         config.useGL30 = true
         config.resizable = false
         config.title = "Assembly Game"
-        config.addIcon("General/logo.png", Files.FileType.Internal)
+        config.addIcon("General/logoIcon.png", Files.FileType.Internal)
         /**Java code**/
         System.setProperty("org.lwjgl.opengl.Window.undecorated", "true")
         /**end.**/

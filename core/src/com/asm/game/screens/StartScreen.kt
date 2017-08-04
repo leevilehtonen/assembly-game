@@ -49,9 +49,8 @@ class StartScreen(var mGame: AsmGdxGame) : KtxScreen {
         mStartLogoTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
 
         var mStartLogoImage: Image = Image(mStartLogoTexture)
-        mTable.add(mStartLogoImage).size(mStartLogoImage.width, mStartLogoImage.height).center().colspan(3)
+        mTable.add(mStartLogoImage).size(mStartLogoImage.width * 0.7f, mStartLogoImage.height*0.7f).center().colspan(3)
         mTable.row()
-
 
         var playButtonStyle: Button.ButtonStyle = Button.ButtonStyle()
         var aboutButtonStyle: Button.ButtonStyle = Button.ButtonStyle()
@@ -62,7 +61,6 @@ class StartScreen(var mGame: AsmGdxGame) : KtxScreen {
         var playBtn: Button = Button(playButtonStyle)
         var aboutBtn: Button = Button(aboutButtonStyle)
         var quitBtn: Button = Button(quitButtonStyle)
-
 
         playBtn.addListener(object : ClickListener() {
 
