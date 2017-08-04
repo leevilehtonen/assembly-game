@@ -53,8 +53,8 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
 
     fun update(delta: Float) {
         physicsWorld.update(delta)
-        objects.forEach { it.update(delta) }
         background.update(delta)
+        objects.forEach { it.update(delta) }
     }
 }
 

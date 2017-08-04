@@ -1,0 +1,33 @@
+
+Background.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: xy
+ForeHills
+  rotate: false
+  xy: 1, 601
+  size: 1536, 256
+  orig: 1536, 256
+  offset: 0, 0
+  index: -1
+Forest
+  rotate: false
+  xy: 1, 343
+  size: 1536, 256
+  orig: 1536, 256
+  offset: 0, 0
+  index: -1
+Floor
+  rotate: false
+  xy: 1, 172
+  size: 1536, 169
+  orig: 1536, 169
+  offset: 0, 0
+  index: -1
+Roof
+  rotate: false
+  xy: 1, 1
+  size: 1536, 169
+  orig: 1536, 169
+  offset: 0, 0
+  index: -1
