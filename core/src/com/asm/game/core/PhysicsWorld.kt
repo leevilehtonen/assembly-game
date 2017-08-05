@@ -58,6 +58,7 @@ class PhysicsWorld(val mGameWorld: GameWorld) {
     fun createDynamicBody(size: Vector2, position: Vector2, density: Float, category: Int): Body {
         return world.body(BodyDef.BodyType.DynamicBody) {
             this.position.set(position.x * Constants.WORLD_TO_BOX, position.y * Constants.WORLD_TO_BOX)
+            this.allowSleep = false
             box(width = size.x * Constants.WORLD_TO_BOX, height = size.y * Constants.WORLD_TO_BOX) {
                 this.density = density
                 this.filter.categoryBits = category.toShort()
@@ -68,6 +69,7 @@ class PhysicsWorld(val mGameWorld: GameWorld) {
     fun createStaticBody(size: Vector2, position: Vector2, density: Float, category: Int): Body {
         return world.body(BodyDef.BodyType.StaticBody) {
             this.position.set(position.x * Constants.WORLD_TO_BOX, position.y * Constants.WORLD_TO_BOX)
+            this.allowSleep = false
             box(width = size.x * Constants.WORLD_TO_BOX, height = size.y * Constants.WORLD_TO_BOX) {
                 this.density = density
                 this.filter.categoryBits = category.toShort()

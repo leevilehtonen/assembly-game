@@ -4,7 +4,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import ktx.collections.gdxArrayOf
 
-class Layer(val speed: Float, val textureRegion: TextureRegion, val y: Float) {
+class Layer(val multplier:Float, var speed: Float, val textureRegion: TextureRegion, val y: Float) {
+
     val sprites = gdxArrayOf<Sprite>()
     val minX = -1586f
     val moveToX = 1486f
@@ -30,11 +31,11 @@ class Layer(val speed: Float, val textureRegion: TextureRegion, val y: Float) {
     }
 
     fun update(delta: Float) {
-        sprite1.x -= speed * delta
-        sprite2.x -= speed * delta
+        sprite1.x -= speed * multplier * delta
+        sprite2.x -= speed * multplier * delta
 
         if (sprite1.x <= minX) {
-            sprite1.x = sprite2.x + sprite2.width - (speed * delta)
+            sprite1.x = sprite2.x + sprite2.width - (speed* multplier* delta)
             var temp = sprite1
             sprite1 = sprite2
             sprite2 = temp

@@ -21,10 +21,10 @@ class Background(val mGame: AsmGdxGame, val speed: Float) {
         val roofY = Constants.GAME_HEIGHT - roofTexture.regionHeight + 100f
 
 
-        val foreLayer = Layer(0.5f * speed, foreTexture, foreY)
-        val forestLayer = Layer(0.25f * speed, forestTexture, forestY)
-        val floorLayer = Layer(speed, floorTexture, floorY)
-        val roofLayer = Layer(speed, roofTexture, roofY)
+        val foreLayer = Layer(0.5f,  speed, foreTexture, foreY)
+        val forestLayer = Layer(0.25f, speed, forestTexture, forestY)
+        val floorLayer = Layer(1f, speed, floorTexture, floorY)
+        val roofLayer = Layer(1f, speed, roofTexture, roofY)
 
         addLayer(forestLayer)
         addLayer(foreLayer)
@@ -41,6 +41,11 @@ class Background(val mGame: AsmGdxGame, val speed: Float) {
     fun update(delta: Float) {
         layers.forEach {
             it.update(delta)
+        }
+    }
+    fun setSpeed(speed: Float) {
+        layers.forEach {
+            it.speed = speed
         }
     }
 

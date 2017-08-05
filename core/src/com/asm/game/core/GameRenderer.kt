@@ -12,8 +12,8 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
 
 
 class GameRenderer(val mGame: AsmGdxGame, val mGameScreen: GameScreen, val mGameWorld: GameWorld){
-    //var debugRenderer: Box2DDebugRenderer = Box2DDebugRenderer()
-    //var debugMatrix: Matrix4 = mGameScreen.mCamera.combined.cpy().scale(Constants.BOX_TO_WORLD, Constants.BOX_TO_WORLD, 1F)
+    var debugRenderer: Box2DDebugRenderer = Box2DDebugRenderer()
+    var debugMatrix: Matrix4 = mGameScreen.mCamera.combined.cpy().scale(Constants.BOX_TO_WORLD, Constants.BOX_TO_WORLD, 1F)
 
 
     fun render() {
@@ -28,6 +28,7 @@ class GameRenderer(val mGame: AsmGdxGame, val mGameScreen: GameScreen, val mGame
 
         mGame.mSpriteBatch.begin()
         mGameWorld.background.layers.forEach {it.sprites.forEach{it.draw(mGame.mSpriteBatch)}}
+        mGameWorld.spawner.objects.forEach { it.sprite.draw(mGame.mSpriteBatch) }
         mGameWorld.objects.forEach { it.sprite.draw(mGame.mSpriteBatch) }
         mGame.mSpriteBatch.end()
         //debugRenderer.render(mGameWorld.physicsWorld.world, debugMatrix)

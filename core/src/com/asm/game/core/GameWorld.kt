@@ -10,6 +10,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
+import com.badlogic.gdx.utils.TimeUtils
 import ktx.collections.gdxListOf
 
 class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
@@ -17,6 +18,7 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
     lateinit var background: Background
     lateinit var player: Player
     lateinit var physicsWorld: PhysicsWorld
+    lateinit var spawner: Spawner
 
     var objects = gdxListOf<GameObject>()
 
@@ -50,13 +52,14 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
     fun createMap() {
         physicsWorld.createStaticBody(Vector2(1024F, 69F), Vector2(Constants.GAME_WIDTH / 2, 32F), 40F, Constants.BORDER_BOTTOM_PHYSICS_TAG)
         physicsWorld.createStaticBody(Vector2(1024F, 69F), Vector2(Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT - 32F), 40F, Constants.BORDER_TOP_PHYSICS_TAG)
-
+        spawner = Spawner(this)
     }
 
     fun update(delta: Float) {
         physicsWorld.update(delta)
         background.update(delta)
         objects.forEach { it.update(delta) }
+        spawner.update(delta)
     }
 }
 
