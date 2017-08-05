@@ -8,7 +8,7 @@ import ktx.collections.gdxArrayOf
 class PlayerAnimation(val assetLoader: AssetLoader) {
     lateinit var walkAnimation: Animation<TextureRegion>
     var walkFrames = gdxArrayOf<TextureRegion>()
-    val frameDuration: Float = 1 / 24f
+    val frameDuration: Float = 1 / 60f
 
     init {
         createAnimation()

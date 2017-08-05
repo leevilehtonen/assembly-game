@@ -1,20 +1,15 @@
 package com.asm.game.core
 
-import com.asm.game.objects.Obstacle
 import com.asm.game.objects.Updateable
 import com.asm.game.utils.Constants
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.TimeUtils
 import ktx.collections.gdxArrayOf
-import ktx.collections.gdxListOf
 
 class GravityHandler(val mGameWorld: GameWorld): Updateable {
 
-    var spawnTimer: Long = 0L
+    var spawnTimer: Long = TimeUtils.nanoTime()
     var speed: Float = Constants.DEFAULT_SPEED
     val gValues = gdxArrayOf<Float>(-5f, -10f, -15f, -25f)
 

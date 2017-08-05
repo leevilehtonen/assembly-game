@@ -43,7 +43,15 @@ class PhysicsWorld(val mGameWorld: GameWorld) {
             override fun preSolve(contact: Contact?, oldManifold: Manifold?) {
             }
 
-            override fun postSolve(contact: Contact?, impulse: ContactImpulse?) {
+            override fun postSolve(contact: Contact, impulse: ContactImpulse) {
+                if ((contact.fixtureA.filterData.categoryBits.toInt() == Constants.PLAYER_PHYSICS_TAG && contact.fixtureB.filterData.categoryBits.toInt() == Constants.BORDER_SIDE_PHYSICS_TAG) || (contact.fixtureA.filterData.categoryBits.toInt() == Constants.BORDER_SIDE_PHYSICS_TAG && contact.fixtureB.filterData.categoryBits.toInt() == Constants.PLAYER_PHYSICS_TAG)) {
+                    impulse.normalImpulses.forEach {
+                        if (it > 100f) {
+                            println("Hävisit")
+                            return
+                        }
+                    }
+                }
             }
 
         })
@@ -60,10 +68,10 @@ class PhysicsWorld(val mGameWorld: GameWorld) {
             this.position.set(position.x * Constants.WORLD_TO_BOX, position.y * Constants.WORLD_TO_BOX)
             this.allowSleep = false
             polygon(
-                    createPolyVector(Vector2(-10f, -45f)),
-                    createPolyVector(Vector2(10f, -45f)),
-                    createPolyVector(Vector2(10f, 45f)),
-                    createPolyVector(Vector2(-10f, 45f)),
+                    createPolyVector(Vector2(-20f, -45f)),
+                    createPolyVector(Vector2(20f, -45f)),
+                    createPolyVector(Vector2(20f, 45f)),
+                    createPolyVector(Vector2(-20f, 45f)),
                     createPolyVector(Vector2(-30f, -5f)),
                     createPolyVector(Vector2(30f, -5f))
             ) {
