@@ -61,7 +61,7 @@ class PhysicsWorld(val mGameWorld: GameWorld) {
                 if ((contact.fixtureA.filterData.categoryBits.toInt() == Constants.PLAYER_PHYSICS_TAG && contact.fixtureB.filterData.categoryBits.toInt() == Constants.BORDER_SIDE_PHYSICS_TAG) || (contact.fixtureA.filterData.categoryBits.toInt() == Constants.BORDER_SIDE_PHYSICS_TAG && contact.fixtureB.filterData.categoryBits.toInt() == Constants.PLAYER_PHYSICS_TAG)) {
                     impulse.normalImpulses.forEach {
                         if (it > 100f) {
-                            println("Hävisit")
+                           // println("Hävisit")
                             return
                         }
                     }

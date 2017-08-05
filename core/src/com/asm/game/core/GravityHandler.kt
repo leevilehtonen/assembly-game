@@ -21,8 +21,12 @@ class GravityHandler(val mGameWorld: GameWorld) : Updateable {
     var sY = currentGBar
     var mX = 40f
     var mY = 240f
+    var lastGravity = currentGravity
+    var bX = mX
+    var bY = mY
+
     var counter = 0f
-    var tweenSpeed = 10f
+    var tweenSpeed = 30f
     var shouldTween = false
 
     fun getX(): Float {
@@ -30,7 +34,7 @@ class GravityHandler(val mGameWorld: GameWorld) : Updateable {
     }
 
     fun getSizeY(): Float {
-        return sY
+        if (sY < 0) return sY else return sY
     }
 
     fun getSizeX(): Float {
@@ -38,10 +42,11 @@ class GravityHandler(val mGameWorld: GameWorld) : Updateable {
     }
 
     fun getY(): Float {
-        if (currentGravity < 0f) {
+        if (currentGravity > 0f) {
             return mY
         } else {
-            return mY - currentGBar
+            // return bY
+            return mY - sY
         }
     }
 
@@ -58,29 +63,69 @@ class GravityHandler(val mGameWorld: GameWorld) : Updateable {
             changeGravity()
             spawnTimer = TimeUtils.nanoTime()
         }
-        if (shouldTween) {
-            if (currentGravity > 0) {
-                if (currentGBar > lastGBar) {
-                    sY += tweenSpeed * delta
-                    if(sY >= currentGBar) sY = currentGBar
-                }else{
-                    sY -= tweenSpeed * delta
-                    if(sY <= currentGBar) sY = currentGBar
+
+        tweenSpeed = Math.abs(lastGBar - currentGBar) * 10f
+
+        if (currentGravity > 0) {
+            bY = mY
+            if (currentGBar > lastGBar) {
+                sY += tweenSpeed * delta
+                if (sY >= currentGBar) {
+
+                    sY = currentGBar
                 }
-
             } else {
-                if (currentGBar < lastGBar) {
-                    sY += tweenSpeed * delta
+                sY -= tweenSpeed * delta
+                if (sY <= currentGBar) {
 
-                    if(sY >= currentGBar) sY = currentGBar
-                }else{
-                    sY -= tweenSpeed * delta
-                    if(sY <= currentGBar) sY = currentGBar
+                    sY = currentGBar
+                } else if(sY <= 0){
+                    sY += tweenSpeed * delta
+                    bY -= tweenSpeed * delta
+                    if (sY >= currentGBar) {
+                        sY = currentGBar
+                        bY = currentGBar + mY
+
+                    }
                 }
             }
 
+        } else if (currentGravity < 0) {
+            if (currentGBar < lastGBar) {
+                println("current on pienempi" + sY + "   " + bY)
+                sY -= tweenSpeed * delta
+                bY += tweenSpeed * delta
+
+                if (sY <= currentGBar) {
+
+                    sY = currentGBar
+                    bY = currentGBar + mY
+                } else if(sY <= 0){
+                    sY += tweenSpeed * delta
+                    if (sY >= currentGBar) {
+
+                        sY = currentGBar
+                    }
+                }
+
+            }
+        } else {
+            println("current on isompi" + sY + "   " + bY)
+
+            sY += tweenSpeed * delta
+            bY -= tweenSpeed * delta
+            if (sY >= currentGBar) {
+                sY = currentGBar
+                bY = currentGBar + mY
+
+            } else if(sY >= currentGBar && lastGravity > 0){
+                sY = tweenSpeed * delta
+            }
         }
+
+
     }
+
 
     fun changeGravity() {
         shouldTween = true
@@ -90,7 +135,9 @@ class GravityHandler(val mGameWorld: GameWorld) : Updateable {
         mGameWorld.physicsWorld.world.gravity = Vector2(0f, gravity)
         lastGBar = currentGBar
         currentGBar = gBarValue[gravity]
+        lastGravity = currentGravity
         currentGravity = gravity
         println(mGameWorld.physicsWorld.world.gravity)
     }
+
 }

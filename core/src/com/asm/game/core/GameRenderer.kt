@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Matrix4
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
 import com.badlogic.gdx.utils.TimeUtils
+import com.sun.corba.se.impl.orbutil.closure.Constant
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const
 
 
 class GameRenderer(val mGame: AsmGdxGame, val mGameScreen: GameScreen, val mGameWorld: GameWorld){
@@ -39,12 +41,14 @@ class GameRenderer(val mGame: AsmGdxGame, val mGameScreen: GameScreen, val mGame
         mGameScreen.bitmapFont.draw(mGame.mSpriteBatch, mGameWorld.gravString, Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT / 2)
         mGameScreen.bitmapFont.setColor(1f,1f,1f,1f)
         mGameScreen.bitmapFontSmall.draw(mGame.mSpriteBatch, mGameWorld.gravTextString, Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT / 2 + 50f)
+        mGameScreen.bitmapFont.draw(mGame.mSpriteBatch,"Gravity: " + mGameWorld.gravityHandler.currentGravity.toString(), 200f, Constants.GAME_HEIGHT - 10f )
         mGameScreen.bitmapFont.draw(mGame.mSpriteBatch, mGameWorld.player.coinString(), 40f, Constants.GAME_HEIGHT - 10)
 
         mGame.mSpriteBatch.end()
 
         mGame.mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled)
         mGame.mShapeRenderer.color = GameColors.GRAVITY_BAR
+
         mGame.mShapeRenderer.rect( mGameWorld.gravityHandler.getX(), mGameWorld.gravityHandler.getY(), mGameWorld.gravityHandler.getSizeX(), mGameWorld.gravityHandler.getSizeY())
         mGame.mShapeRenderer.end()
 
