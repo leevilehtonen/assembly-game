@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Matrix4
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
+import com.badlogic.gdx.utils.TimeUtils
 
 
 class GameRenderer(val mGame: AsmGdxGame, val mGameScreen: GameScreen, val mGameWorld: GameWorld){
@@ -27,10 +28,16 @@ class GameRenderer(val mGame: AsmGdxGame, val mGameScreen: GameScreen, val mGame
         mGame.mShapeRenderer.end()
 
         mGame.mSpriteBatch.begin()
+
+        mGameScreen.bitmapFont.setColor(1f,1f,1f,1f)
+        mGameScreen.bitmapFont.draw(mGame.mSpriteBatch, mGameWorld.gravString, Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT / 2)
         mGameWorld.background.layers.forEach {it.sprites.forEach{it.draw(mGame.mSpriteBatch)}}
         mGameWorld.spawner.objects.forEach { it.sprite.draw(mGame.mSpriteBatch) }
         mGameWorld.objects.forEach { it.sprite.draw(mGame.mSpriteBatch) }
         mGame.mSpriteBatch.end()
+
+
+
         debugRenderer.render(mGameWorld.physicsWorld.world, debugMatrix)
 
 

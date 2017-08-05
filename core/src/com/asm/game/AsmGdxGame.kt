@@ -23,6 +23,7 @@ class AsmGdxGame : KtxGame<Screen>() {
         // addScreen(SplashScreen(this))
         mAssetLoader.loadBackground()
         mAssetLoader.loadWalkAnimation()
+        mAssetLoader.loadFonts()
         addScreen(GameScreen(this))
         setScreen<GameScreen>()
     }

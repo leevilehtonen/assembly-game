@@ -1,17 +1,38 @@
 package com.asm.game.utils
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.assets.loaders.TextureAtlasLoader.TextureAtlasParameter
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.badlogic.gdx.graphics.g2d.freetype.FreeType
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 
 
 class AssetLoader {
     var mAssetManager: AssetManager = AssetManager()
     lateinit var mBackgroundAtlas: TextureAtlas
     lateinit var mWalkAnimationAtlas: TextureAtlas
+    lateinit var fontBig: BitmapFont
+    lateinit var fontSmall: BitmapFont
 
+    fun loadFonts(){
+        val freeTypeFontGenerator = FreeTypeFontGenerator(Gdx.files.internal("Fonts/font.ttf"))
+        val freeTypeFontParameter = FreeTypeFontGenerator.FreeTypeFontParameter()
+        freeTypeFontParameter.magFilter = Texture.TextureFilter.Linear
+        freeTypeFontParameter.minFilter = Texture.TextureFilter.Linear
+        freeTypeFontParameter.size = 40
+        fontBig = freeTypeFontGenerator.generateFont(freeTypeFontParameter)
+        freeTypeFontParameter.size = 24
+        fontSmall = freeTypeFontGenerator.generateFont(freeTypeFontParameter)
+        freeTypeFontGenerator.dispose()
+    }
 
+    fun unloadFonts(){
+        fontBig.dispose()
+        fontSmall.dispose()
+    }
     fun loadBackground() {
 
         val textureAtlasParameter = TextureAtlasParameter(false)
@@ -53,6 +74,7 @@ class AssetLoader {
     fun dispose() {
         unloadBackground()
         unloadAnimations()
+        unloadFonts()
         mAssetManager.dispose()
     }
 }

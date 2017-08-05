@@ -5,8 +5,12 @@ import com.asm.game.core.GameRenderer
 import com.asm.game.core.GameWorld
 import com.asm.game.utils.Constants
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.OrthographicCamera
+import com.badlogic.gdx.graphics.g2d.BitmapFont
+import com.badlogic.gdx.graphics.g2d.freetype.FreeType
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.utils.viewport.FitViewport
 import ktx.app.KtxScreen
 
@@ -17,12 +21,11 @@ class GameScreen(val mGame: AsmGdxGame) : KtxScreen {
     lateinit var mCamera: OrthographicCamera
     lateinit var mViewport: FitViewport
     lateinit var mStage: Stage
-
+    lateinit var bitmapFont: BitmapFont
 
     init {
         initScreen()
         initCore()
-
     }
 
 
@@ -37,6 +40,7 @@ class GameScreen(val mGame: AsmGdxGame) : KtxScreen {
         mGame.mSpriteBatch.projectionMatrix = mCamera.combined
         mGame.mShapeRenderer.projectionMatrix = mCamera.combined
         mViewport = FitViewport(Constants.GAME_WIDTH, Constants.GAME_HEIGHT, mCamera)
+        bitmapFont = mGame.mAssetLoader.fontBig
         mStage = Stage(mViewport)
         Gdx.input.inputProcessor = mStage
     }
