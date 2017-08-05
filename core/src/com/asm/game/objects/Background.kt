@@ -14,12 +14,10 @@ class Background(val mGame: AsmGdxGame, val speed: Float) {
         val floorTexture = TextureRegion(mGame.mAssetLoader.mBackgroundAtlas.findRegion("Floor"))
         val roofTexture = TextureRegion(mGame.mAssetLoader.mBackgroundAtlas.findRegion("Roof"))
 
-
         val foreY = -20f
         val forestY = 20f
         val floorY = -100f
         val roofY = Constants.GAME_HEIGHT - roofTexture.regionHeight + 100f
-
 
         val foreLayer = Layer(0.5f,  speed, foreTexture, foreY)
         val forestLayer = Layer(0.25f, speed, forestTexture, forestY)

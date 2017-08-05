@@ -55,7 +55,27 @@ class PhysicsWorld(val mGameWorld: GameWorld) {
 
     }
 
-    fun createPlayer() {
+    fun createPlayer(position: Vector2, density: Float, category: Int): Body {
+        return world.body(BodyDef.BodyType.DynamicBody) {
+            this.position.set(position.x * Constants.WORLD_TO_BOX, position.y * Constants.WORLD_TO_BOX)
+            this.allowSleep = false
+            polygon(
+                    createPolyVector(Vector2(-10f, -45f)),
+                    createPolyVector(Vector2(10f, -45f)),
+                    createPolyVector(Vector2(10f, 45f)),
+                    createPolyVector(Vector2(-10f, 45f)),
+                    createPolyVector(Vector2(-30f, -5f)),
+                    createPolyVector(Vector2(30f, -5f))
+            ) {
+                this.density = density
+                this.filter.categoryBits = category.toShort()
+            }
+
+        }
+    }
+
+    fun createPolyVector(vector: Vector2): Vector2 {
+        return vector.cpy().set(vector.x * Constants.WORLD_TO_BOX, vector.y * Constants.WORLD_TO_BOX)
     }
 
     fun createDynamicBody(size: Vector2, position: Vector2, density: Float, category: Int): Body {

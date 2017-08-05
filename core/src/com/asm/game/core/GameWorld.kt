@@ -40,13 +40,12 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
 
     private fun createBackground(){
         background = Background(mGame, Constants.DEFAULT_SPEED)
-
     }
 
     private fun createPlayer() {
         val animation: PlayerAnimation = PlayerAnimation(mGame.mAssetLoader)
         var playerTexture = animation.walkAnimation.getKeyFrame(0f)
-        val playerBody: Body = physicsWorld.createDynamicBody(Vector2(60f, 90f), Vector2(500f, 500f), 50f, Constants.PLAYER_PHYSICS_TAG)
+        val playerBody: Body = physicsWorld.createPlayer(Vector2(500f, 500f), 50f, Constants.PLAYER_PHYSICS_TAG)
         player = Player(playerBody, playerTexture, animation)
         objects + player
     }
