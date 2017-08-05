@@ -6,11 +6,6 @@ object GameColors {
     val SPLASH_BACKGROUND = Color(Color.valueOf("FFFFFFFF"))
     val GAME_BACKGROUND = Color(Color.valueOf("ACF4FFFF"))
     val START_BACKGROUND = Color(Color.valueOf("F7E7B3FF"))
-    val START_OVERLAY = Color(1f,1f,1f,0.4f)
-    val GRAVITY_BAR = Color(1f,1f,1f,1f)
-
-    val G_5 = Color(1f,1f,1f,1f)
-    val G_10 = Color(1f,1f,1f,1f)
-
-
+    val START_OVERLAY = Color(1f, 1f, 1f, 0.4f)
+    val GRAVITY_BAR = Color(0.1f, 0.2f, 1f, 1f)
 }

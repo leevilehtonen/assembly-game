@@ -27,6 +27,7 @@ class GameRenderer(val mGame: AsmGdxGame, val mGameScreen: GameScreen, val mGame
         mGame.mShapeRenderer.rect(0F, 0F, Constants.GAME_WIDTH, Constants.GAME_HEIGHT)
 
         mGame.mShapeRenderer.color = GameColors.GRAVITY_BAR
+        mGame.mShapeRenderer.rect( mGameWorld.gravityHandler.getX(), mGameWorld.gravityHandler.getY(), mGameWorld.gravityHandler.getSizeX(), mGameWorld.gravityHandler.getSizeY())
 
         mGame.mShapeRenderer.end()
 
