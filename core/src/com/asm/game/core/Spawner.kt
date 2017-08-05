@@ -33,7 +33,6 @@ class Spawner(val mGameWorld: GameWorld) : Updateable {
             spawnObject()
             spawnTimer = TimeUtils.nanoTime()
         }
-       // println("Objects count:" + objects.size)
         objects.forEach {
             it.update(delta)
             if (it.sprite.x < -it.sprite.width) {

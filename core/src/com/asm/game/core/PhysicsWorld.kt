@@ -49,14 +49,25 @@ class PhysicsWorld(val mGameWorld: GameWorld) {
                         fixBBits == Constants.PLAYER_PHYSICS_TAG) {
                     mGameWorld.player.addCoin()
                     mGameWorld.spawner.deleteObject(fixtureA.body.userData as PhysicsGameObject)
-                    println("Coin")
 
 
                 } else if (fixBBits == Constants.COIN_PHYSICS_TAG &&
                         fixABits == Constants.PLAYER_PHYSICS_TAG) {
-                    println("Coin")
                     mGameWorld.player.addCoin()
                     mGameWorld.spawner.deleteObject(fixtureB.body.userData as PhysicsGameObject)
+
+                }
+
+                if (fixABits == Constants.OBSTACLE_PHYSICS_TAG &&
+                        fixBBits == Constants.PLAYER_PHYSICS_TAG) {
+                    mGameWorld.mGameScreen.gameOver();
+                    //GAMEOVER
+
+                } else if (fixBBits == Constants.OBSTACLE_PHYSICS_TAG &&
+                        fixABits == Constants.PLAYER_PHYSICS_TAG) {
+                    mGameWorld.mGameScreen.gameOver();
+
+                    //GAMEOVER
 
                 }
             }
@@ -103,6 +114,7 @@ class PhysicsWorld(val mGameWorld: GameWorld) {
             ) {
                 this.density = density
                 this.filter.categoryBits = category.toShort()
+                this.restitution = 0.1f
             }
 
         }

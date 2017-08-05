@@ -79,6 +79,14 @@ class GameScreen(val mGame: AsmGdxGame) : KtxScreen {
     }
 
     override fun show() {
+        if(mGame.containsScreen<GameOverScreen>()) {
+            mGame.removeScreen<GameOverScreen>()
+        }
         super.show()
+    }
+
+    fun gameOver() {
+        mGame.addScreen(GameOverScreen(mGame))
+        mGame.setScreen<GameOverScreen>()
     }
 }

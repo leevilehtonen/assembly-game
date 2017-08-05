@@ -20,17 +20,17 @@ class Player(body: Body, texture: TextureRegion, val animation: PlayerAnimation)
     var points: Float = 0f
 
     override fun update(delta: Float) {
+        if(body.position.x * Constants.BOX_TO_WORLD > Constants.GAME_WIDTH) {
+            body.setTransform(Constants.GAME_WIDTH * Constants.WORLD_TO_BOX, body.position.y, body.angle)
+        }
         sprite.setPosition(Constants.BOX_TO_WORLD * body.position.x - sprite.width / 2, Constants.BOX_TO_WORLD * body.position.y - sprite.height / 2)
         sprite.rotation = body.angle * MathUtils.radiansToDegrees
         walkStateTime += delta
         sprite.setRegion(animation.walkAnimation.getKeyFrame(walkStateTime, true))
 
 
-        if (Gdx.input.isTouched && playerState != PlayerState.POSITION_INAIR) {
+        if ((Gdx.input.isTouched || Gdx.input.isKeyPressed(Input.Keys.SPACE)) && playerState != PlayerState.POSITION_INAIR) {
             jump()
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && playerState != PlayerState.POSITION_INAIR) {
-            //gravityFlip()
         }
         if (rotate) {
             val addition: Float = delta * Constants.ROTATE_SPEED
@@ -52,17 +52,8 @@ class Player(body: Body, texture: TextureRegion, val animation: PlayerAnimation)
         }
     }
 
-    fun gravityFlip() {
-        body.world.gravity = body.world.gravity.cpy().scl(-1f)
-        lastState = playerState
-        playerState = PlayerState.POSITION_INAIR
-        rotate = true
-
-    }
-
     fun addCoin(){
         coins += 1
-        
     }
 
     fun coinString(): String{

@@ -4,36 +4,41 @@ import com.asm.game.AsmGdxGame
 import com.asm.game.utils.Constants
 import com.asm.game.utils.GameColors
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL30
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.viewport.FitViewport
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const
 import ktx.app.KtxScreen
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle
 
 
-class StartScreen(var mGame: AsmGdxGame) : KtxScreen {
+
+
+class GameOverScreen(var mGame: AsmGdxGame) : KtxScreen {
 
     lateinit var mCamera: OrthographicCamera
     lateinit var mViewport: FitViewport
     lateinit var mStage: Stage
     lateinit var mTable: Table
-    lateinit var mBround: Texture
+    lateinit var bitmapFont: BitmapFont
+    lateinit var bitmapFontSmall: BitmapFont
+
+
     init {
         initScreen()
         createScene()
-        mBround = Texture(Gdx.files.internal("StartScreen/MenuBackground.png"))
-
-
     }
 
     private fun initScreen() {
@@ -41,6 +46,8 @@ class StartScreen(var mGame: AsmGdxGame) : KtxScreen {
         mCamera.setToOrtho(false)
         mGame.mSpriteBatch.projectionMatrix = mCamera.combined
         mGame.mShapeRenderer.projectionMatrix = mCamera.combined
+        bitmapFont = mGame.mAssetLoader.fontBig
+        bitmapFontSmall = mGame.mAssetLoader.fontSmall
         mViewport = FitViewport(Constants.GAME_WIDTH, Constants.GAME_HEIGHT, mCamera)
         mStage = Stage(mViewport)
         Gdx.input.inputProcessor = mStage
@@ -49,24 +56,23 @@ class StartScreen(var mGame: AsmGdxGame) : KtxScreen {
     }
 
     fun createScene() {
-        var mStartLogoTexture: Texture = Texture(Gdx.files.internal("StartScreen/logo.png"))
-        mStartLogoTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
-
-        var mStartLogoImage: Image = Image(mStartLogoTexture)
-        mTable.add(mStartLogoImage).size(mStartLogoImage.width * 0.7f, mStartLogoImage.height*0.7f).center().colspan(3)
-        mTable.row()
-
-        var playButtonStyle: Button.ButtonStyle = Button.ButtonStyle()
-        var aboutButtonStyle: Button.ButtonStyle = Button.ButtonStyle()
+        var largeLabelStyle:LabelStyle = LabelStyle(bitmapFont, Color.WHITE)
+        var smallLabelStyle:LabelStyle = LabelStyle(bitmapFontSmall, Color.WHITE)
+        var restartButtonStyle: Button.ButtonStyle = Button.ButtonStyle()
         var quitButtonStyle: Button.ButtonStyle = Button.ButtonStyle()
-        playButtonStyle.up = TextureRegionDrawable(TextureRegion(Texture(Gdx.files.internal("StartScreen/PlayButton.png"))))
-        aboutButtonStyle.up = TextureRegionDrawable(TextureRegion(Texture(Gdx.files.internal("StartScreen/AboutButton.png"))))
-        quitButtonStyle.up = TextureRegionDrawable(TextureRegion(Texture(Gdx.files.internal("StartScreen/QuitButton.png"))))
-        var playBtn: Button = Button(playButtonStyle)
-        var aboutBtn: Button = Button(aboutButtonStyle)
+        restartButtonStyle.up = TextureRegionDrawable(TextureRegion(Texture(Gdx.files.internal("GameOverScreen/RestartButton.png"))))
+        quitButtonStyle.up = TextureRegionDrawable(TextureRegion(Texture(Gdx.files.internal("GameOverScreen/QuitButton.png"))))
+
+
+        var coinsLabel:Label = Label("Coins: 0", smallLabelStyle)
+        var scoreLabel:Label = Label("Score: 0", smallLabelStyle)
+
+
+
+        var restartBtn: Button = Button(restartButtonStyle)
         var quitBtn: Button = Button(quitButtonStyle)
 
-        playBtn.addListener(object : ClickListener() {
+        restartBtn.addListener(object : ClickListener() {
 
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 mGame.addScreen(GameScreen(mGame))
@@ -75,13 +81,6 @@ class StartScreen(var mGame: AsmGdxGame) : KtxScreen {
             }
         })
 
-        aboutBtn.addListener(object : ClickListener() {
-
-            override fun clicked(event: InputEvent?, x: Float, y: Float) {
-                println("About clicked")
-                super.clicked(event, x, y)
-            }
-        })
 
         quitBtn.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
@@ -89,9 +88,9 @@ class StartScreen(var mGame: AsmGdxGame) : KtxScreen {
                 super.clicked(event, x, y)
             }
         })
-
-        mTable.add(playBtn).pad(10F)
-        mTable.add(aboutBtn).pad(10F)
+        mTable.add(coinsLabel)
+        mTable.add(scoreLabel)
+        mTable.add(restartBtn).pad(10F)
         mTable.add(quitBtn).pad(10F)
         mStage.addActor(mTable)
 
@@ -118,17 +117,6 @@ class StartScreen(var mGame: AsmGdxGame) : KtxScreen {
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT or GL30.GL_DEPTH_BUFFER_BIT)
         Gdx.gl.glEnable(GL30.GL_BLEND)
 
-        mGame.mSpriteBatch.begin()
-
-        mGame.mSpriteBatch.draw(mBround,0f,0f, Constants.GAME_WIDTH, Constants.GAME_HEIGHT)
-        mGame.mSpriteBatch.end()
-        Gdx.gl.glEnable(GL30.GL_BLEND)
-        mGame.mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled)
-        mGame.mShapeRenderer.color = GameColors.START_OVERLAY
-        mGame.mShapeRenderer.rect(0f,0f,Constants.GAME_WIDTH, Constants.GAME_HEIGHT)
-
-        mGame.mShapeRenderer.end()
-
         mStage.draw()
         mStage.act()
 
@@ -143,6 +131,7 @@ class StartScreen(var mGame: AsmGdxGame) : KtxScreen {
     }
 
     override fun show() {
+        mGame.removeScreen<GameScreen>()
         super.show()
     }
 }
