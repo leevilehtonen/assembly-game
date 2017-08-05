@@ -63,7 +63,7 @@ class GameScreen(val mGame: AsmGdxGame) : KtxScreen {
         super.render(delta)
         if (mGame.mAssetLoader.mAssetManager.update()) {
             mGameWorld.update(delta)
-            mGameRenderer.render()
+            mGameRenderer.render(delta)
 
             mStage.draw()
             mStage.act()
