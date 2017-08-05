@@ -18,6 +18,7 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
     lateinit var player: Player
     lateinit var physicsWorld: PhysicsWorld
     lateinit var spawner: Spawner
+    lateinit var gravityHandler: GravityHandler
     var speed: Float = Constants.DEFAULT_SPEED
     var counterSpeed: Long = 0L
 
@@ -30,6 +31,7 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
 
     private fun initWorld() {
         physicsWorld = PhysicsWorld(this)
+        gravityHandler = GravityHandler(this)
     }
 
     private fun createObjects() {
@@ -64,6 +66,7 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
         background.update(delta)
         objects.forEach { it.update(delta) }
         spawner.update(delta)
+        gravityHandler.update(delta)
 
         if (TimeUtils.timeSinceNanos(counterSpeed) > Constants.SPEEDUPDATE_TARGET_TIME) {
             updateSpeed()

@@ -18,7 +18,6 @@ class Player(val body: Body, val texture: TextureRegion, val animation: PlayerAn
 
     override fun update(delta: Float) {
         sprite.setPosition(Constants.BOX_TO_WORLD * body.position.x - sprite.width / 2, Constants.BOX_TO_WORLD * body.position.y - sprite.height / 2)
-        println(sprite.rotation.toString() + "        " + body.angle)
         sprite.rotation = body.angle * MathUtils.radiansToDegrees
         walkStateTime += delta
         sprite.setRegion(animation.walkAnimation.getKeyFrame(walkStateTime, true))

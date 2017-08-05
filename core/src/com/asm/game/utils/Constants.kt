@@ -15,4 +15,5 @@ object Constants {
     const val OBSTACLE_PHYSICS_TAG = 0x0005
     const val SPAWNER_TARGET_TIME = 1500000000L
     const val SPEEDUPDATE_TARGET_TIME = 5000000000L
+    const val GRAVITY_INTERVAL = 5000000000L
 }
