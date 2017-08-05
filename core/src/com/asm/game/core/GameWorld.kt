@@ -46,14 +46,16 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
     private fun createPlayer() {
         val animation: PlayerAnimation = PlayerAnimation(mGame.mAssetLoader)
         var playerTexture = animation.walkAnimation.getKeyFrame(0f)
-        val playerBody: Body = physicsWorld.createDynamicBody(Vector2(playerTexture.regionWidth.toFloat(), playerTexture.regionHeight.toFloat()), Vector2(500f, 500f), 30f, Constants.PLAYER_PHYSICS_TAG)
+        val playerBody: Body = physicsWorld.createDynamicBody(Vector2(60f, 90f), Vector2(500f, 500f), 50f, Constants.PLAYER_PHYSICS_TAG)
         player = Player(playerBody, playerTexture, animation)
         objects + player
     }
 
     fun createMap() {
-        physicsWorld.createStaticBody(Vector2(1024F, 69F), Vector2(Constants.GAME_WIDTH / 2, 32F), 40F, Constants.BORDER_BOTTOM_PHYSICS_TAG)
-        physicsWorld.createStaticBody(Vector2(1024F, 69F), Vector2(Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT - 32F), 40F, Constants.BORDER_TOP_PHYSICS_TAG)
+        physicsWorld.createStaticBody(Vector2(2048F, 69F), Vector2(Constants.GAME_WIDTH / 2, 32F), 40F, Constants.BORDER_BOTTOM_PHYSICS_TAG)
+        physicsWorld.createStaticBody(Vector2(2045F, 69F), Vector2(Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT - 32F), 40F, Constants.BORDER_TOP_PHYSICS_TAG)
+        physicsWorld.createStaticBody(Vector2(60f, 576F), Vector2(-30f, Constants.GAME_HEIGHT / 2f), 40F, Constants.BORDER_SIDE_PHYSICS_TAG)
+
         spawner = Spawner(this)
         counterSpeed = TimeUtils.nanoTime()
     }

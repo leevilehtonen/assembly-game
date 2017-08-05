@@ -1,10 +1,10 @@
 package com.asm.game.objects
 
 import com.asm.game.utils.Constants
-import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.physics.box2d.Body
 
-class Obstacle(val body: Body, val texture: Texture, var speed: Float, val offsetBody: Float = 0f) : PhysicsGameObject(texture) {
+class Obstacle(val body: Body, val texture: TextureRegion, var speed: Float, val offsetBody: Float = 0f) : PhysicsGameObject(texture) {
 
     init {
         sprite.setPosition(Constants.BOX_TO_WORLD * body.position.x - sprite.width / 2, Constants.BOX_TO_WORLD * body.position.y - sprite.height / 2)

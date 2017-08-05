@@ -11,7 +11,8 @@ object Constants {
     const val PLAYER_PHYSICS_TAG = 0x0001
     const val BORDER_BOTTOM_PHYSICS_TAG = 0x0002
     const val BORDER_TOP_PHYSICS_TAG = 0x0003
-    const val OBSTACLE_PHYSICS_TAG = 0x0004
+    const val BORDER_SIDE_PHYSICS_TAG = 0x0004
+    const val OBSTACLE_PHYSICS_TAG = 0x0005
     const val SPAWNER_TARGET_TIME = 1500000000L
     const val SPEEDUPDATE_TARGET_TIME = 5000000000L
 }

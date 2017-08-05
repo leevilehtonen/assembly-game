@@ -55,6 +55,9 @@ class PhysicsWorld(val mGameWorld: GameWorld) {
 
     }
 
+    fun createPlayer() {
+    }
+
     fun createDynamicBody(size: Vector2, position: Vector2, density: Float, category: Int): Body {
         return world.body(BodyDef.BodyType.DynamicBody) {
             this.position.set(position.x * Constants.WORLD_TO_BOX, position.y * Constants.WORLD_TO_BOX)
