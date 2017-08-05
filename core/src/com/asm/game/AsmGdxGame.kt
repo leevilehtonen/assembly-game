@@ -1,6 +1,7 @@
 package com.asm.game
 
 import com.asm.game.screens.GameScreen
+import com.asm.game.screens.SplashScreen
 import com.asm.game.utils.AssetLoader
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
@@ -20,13 +21,13 @@ class AsmGdxGame : KtxGame<Screen>() {
         mSpriteBatch = SpriteBatch()
         mShapeRenderer = ShapeRenderer()
         mAssetLoader = AssetLoader()
-        // addScreen(SplashScreen(this))
+        addScreen(SplashScreen(this))
         mAssetLoader.loadBackground()
         mAssetLoader.loadWalkAnimation()
         mAssetLoader.loadFonts()
         mAssetLoader.loadCoinAnimation()
-        addScreen(GameScreen(this))
-        setScreen<GameScreen>()
+        //addScreen(GameScreen(this))
+        setScreen<SplashScreen>()
     }
 
     override fun dispose() {

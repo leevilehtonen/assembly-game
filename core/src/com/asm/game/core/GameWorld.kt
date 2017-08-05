@@ -91,7 +91,7 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
     }
 
     fun checkCoinColor(){
-        if(5 - TimeUtils.timeSinceNanos(gravityHandler.spawnTimer) / 1000000000f < 2f){
+        if(Constants.GRAVITY_INTERVAL / 1000000000 - TimeUtils.timeSinceNanos(gravityHandler.spawnTimer) / 1000000000f < 2f){
             coinTextColor = Color(1f,0.1f,0.1f,1f)
         } else {
             coinTextColor = Color(1f,1f,1f,1f)
@@ -99,7 +99,7 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
     }
 
     fun updateGravityString(){
-        gravString = ((5 - TimeUtils.timeSinceNanos(gravityHandler.spawnTimer) / 1000000000f)).toString().take(3)
+        gravString = ((Constants.GRAVITY_INTERVAL / 1000000000 - TimeUtils.timeSinceNanos(gravityHandler.spawnTimer) / 1000000000f)).toString().take(3)
     }
 
 

@@ -33,7 +33,7 @@ class Spawner(val mGameWorld: GameWorld) : Updateable {
             spawnObject()
             spawnTimer = TimeUtils.nanoTime()
         }
-        println("Objects count:" + objects.size)
+       // println("Objects count:" + objects.size)
         objects.forEach {
             it.update(delta)
             if (it.sprite.x < -it.sprite.width) {
@@ -104,7 +104,7 @@ class Spawner(val mGameWorld: GameWorld) : Updateable {
     }
 
     fun createCoin(xPos: Float, yPos: Float): Coin {
-        var coinBody = mGameWorld.physicsWorld.createStaticBody(Vector2(48f, 48f), Vector2(xPos, yPos), 20f, Constants.COIN_PHYSICS_TAG)
+        var coinBody = mGameWorld.physicsWorld.createStaticBody(Vector2(48f, 48f), Vector2(xPos, yPos), 1f, Constants.COIN_PHYSICS_TAG)
         var coin: Coin = Coin(coinBody, coinTexture, speed, animation, this)
         coinBody.userData = coin
         return coin

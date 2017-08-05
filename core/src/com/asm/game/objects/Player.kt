@@ -30,7 +30,7 @@ class Player(body: Body, texture: TextureRegion, val animation: PlayerAnimation)
             jump()
         }
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && playerState != PlayerState.POSITION_INAIR) {
-            gravityFlip()
+            //gravityFlip()
         }
         if (rotate) {
             val addition: Float = delta * Constants.ROTATE_SPEED
