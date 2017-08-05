@@ -22,6 +22,7 @@ class GameScreen(val mGame: AsmGdxGame) : KtxScreen {
     lateinit var mViewport: FitViewport
     lateinit var mStage: Stage
     lateinit var bitmapFont: BitmapFont
+    lateinit var bitmapFontSmall: BitmapFont
 
     init {
         initScreen()
@@ -41,6 +42,7 @@ class GameScreen(val mGame: AsmGdxGame) : KtxScreen {
         mGame.mShapeRenderer.projectionMatrix = mCamera.combined
         mViewport = FitViewport(Constants.GAME_WIDTH, Constants.GAME_HEIGHT, mCamera)
         bitmapFont = mGame.mAssetLoader.fontBig
+        bitmapFontSmall = mGame.mAssetLoader.fontSmall
         mStage = Stage(mViewport)
         Gdx.input.inputProcessor = mStage
     }

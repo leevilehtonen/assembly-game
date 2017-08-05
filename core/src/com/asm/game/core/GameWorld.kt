@@ -21,6 +21,7 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
     lateinit var gravityHandler: GravityHandler
     var speed: Float = Constants.DEFAULT_SPEED
     var counterSpeed: Long = 0L
+    var gravTextString: String = "Time until change: "
     var gravString: String = ""
 
     var objects = gdxListOf<GameObject>()
@@ -77,7 +78,7 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
     }
 
     fun updateGravityString(){
-        gravString = "Time until change: " + ((5 - TimeUtils.timeSinceNanos(gravityHandler.spawnTimer) / 1000000000f)).toString().take(3)
+        gravString = ((5 - TimeUtils.timeSinceNanos(gravityHandler.spawnTimer) / 1000000000f)).toString().take(3)
     }
 
 

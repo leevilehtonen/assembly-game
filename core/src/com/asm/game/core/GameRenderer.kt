@@ -31,6 +31,8 @@ class GameRenderer(val mGame: AsmGdxGame, val mGameScreen: GameScreen, val mGame
 
         mGameScreen.bitmapFont.setColor(1f,1f,1f,1f)
         mGameScreen.bitmapFont.draw(mGame.mSpriteBatch, mGameWorld.gravString, Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT / 2)
+        mGameScreen.bitmapFontSmall.draw(mGame.mSpriteBatch, mGameWorld.gravTextString, Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT / 2 + 50f)
+
         mGameWorld.background.layers.forEach {it.sprites.forEach{it.draw(mGame.mSpriteBatch)}}
         mGameWorld.spawner.objects.forEach { it.sprite.draw(mGame.mSpriteBatch) }
         mGameWorld.objects.forEach { it.sprite.draw(mGame.mSpriteBatch) }
