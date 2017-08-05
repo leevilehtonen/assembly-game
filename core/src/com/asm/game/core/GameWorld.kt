@@ -27,6 +27,7 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
     var coinTextColor: Color = Color(1f,1f,1f,1f)
     var entitiesToRemove = gdxListOf<GameObject>()
     var objects = gdxListOf<GameObject>()
+    var pointMul = 1f
 
     init {
         initWorld()
@@ -76,6 +77,7 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
         }
         entitiesToRemove.clear()
         updateGravityString()
+        updatePoints()
         physicsWorld.update(delta)
         background.update(delta)
         objects.forEach { it.update(delta) }
@@ -83,9 +85,14 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
         gravityHandler.update(delta)
         checkCoinColor()
         if (TimeUtils.timeSinceNanos(counterSpeed) > Constants.SPEEDUPDATE_TARGET_TIME) {
+            pointMul += 2
             updateSpeed()
             counterSpeed = TimeUtils.nanoTime()
         }
+    }
+
+    fun updatePoints(){
+        player.points += pointMul * 0.2f
     }
 
     fun checkCoinColor(){

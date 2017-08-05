@@ -16,7 +16,7 @@ class Player(val body: Body, val texture: TextureRegion, val animation: PlayerAn
     var rotate: Boolean = false
     var walkStateTime: Float = 0f
     var coins: Int = 0
-    var points: Int = 0
+    var points: Float = 0f
 
     override fun update(delta: Float) {
         sprite.setPosition(Constants.BOX_TO_WORLD * body.position.x - sprite.width / 2, Constants.BOX_TO_WORLD * body.position.y - sprite.height / 2)
@@ -61,13 +61,14 @@ class Player(val body: Body, val texture: TextureRegion, val animation: PlayerAn
 
     fun addCoin(){
         coins += 1
+        
     }
 
     fun coinString(): String{
        return "Coins: " + coins
     }
     fun pointString(): String{
-        return "Points: " + points
+        return "Points: " + points.toInt()
     }
 
     fun jump() {

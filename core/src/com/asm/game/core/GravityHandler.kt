@@ -21,7 +21,7 @@ class GravityHandler(val mGameWorld: GameWorld) : Updateable {
     var currentGravity = mGameWorld.physicsWorld.world.gravity.y
     val sX = 15f
     var sY = gBarValue[10f]
-    var mX = Constants.GAME_WIDTH /2 + 100f
+    var mX = 0f//Constants.GAME_WIDTH /2 + 100f
     var mY = Constants.GAME_HEIGHT / 2
     var lastGravity = currentGravity
     var bX = mX
