@@ -25,7 +25,6 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
     var gravTextString: String = "Time until change: "
     var gravString: String = ""
     var coinTextColor: Color = Color(1f,1f,1f,1f)
-    var entitiesToRemove = gdxListOf<GameObject>()
     var objects = gdxListOf<GameObject>()
     var pointMul = 1f
 
@@ -61,34 +60,30 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
     fun createMap() {
         physicsWorld.createStaticBody(Vector2(2048F, 69F), Vector2(Constants.GAME_WIDTH / 2, 32F), 40F, Constants.BORDER_BOTTOM_PHYSICS_TAG)
         physicsWorld.createStaticBody(Vector2(2045F, 69F), Vector2(Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT - 32F), 40F, Constants.BORDER_TOP_PHYSICS_TAG)
-        physicsWorld.createStaticBody(Vector2(60f, 576F), Vector2(-30f, Constants.GAME_HEIGHT / 2f), 40F, Constants.BORDER_SIDE_PHYSICS_TAG)
+        physicsWorld.createStaticBody(Vector2(60f, 1024F), Vector2(0f, Constants.GAME_HEIGHT / 2f), 40F, Constants.BORDER_SIDE_PHYSICS_TAG)
 
         spawner = Spawner(this)
         counterSpeed = TimeUtils.nanoTime()
     }
 
-    fun remove(it: GameObject){
-
-    }
-
     fun update(delta: Float) {
-        entitiesToRemove.forEach{
-            this.remove(it)
-        }
-        entitiesToRemove.clear()
+
+        physicsWorld.update(delta)
         updateGravityString()
         updatePoints()
-        physicsWorld.update(delta)
         background.update(delta)
         objects.forEach { it.update(delta) }
         spawner.update(delta)
         gravityHandler.update(delta)
+
         checkCoinColor()
         if (TimeUtils.timeSinceNanos(counterSpeed) > Constants.SPEEDUPDATE_TARGET_TIME) {
             pointMul += 2
             updateSpeed()
             counterSpeed = TimeUtils.nanoTime()
         }
+
+
     }
 
     fun updatePoints(){
@@ -106,7 +101,6 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
     fun updateGravityString(){
         gravString = ((5 - TimeUtils.timeSinceNanos(gravityHandler.spawnTimer) / 1000000000f)).toString().take(3)
     }
-
 
 
     fun updateSpeed() {

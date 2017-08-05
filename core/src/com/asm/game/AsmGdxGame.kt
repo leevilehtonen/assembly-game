@@ -24,6 +24,7 @@ class AsmGdxGame : KtxGame<Screen>() {
         mAssetLoader.loadBackground()
         mAssetLoader.loadWalkAnimation()
         mAssetLoader.loadFonts()
+        mAssetLoader.loadCoinAnimation()
         addScreen(GameScreen(this))
         setScreen<GameScreen>()
     }

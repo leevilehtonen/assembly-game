@@ -58,7 +58,7 @@ class GravityHandler(val mGameWorld: GameWorld) : Updateable {
         if (shouldTween) {
 
             if (currentGBar > lastGBar) {
-                println("tweenin to: " + currentGBar)
+             //  println("tweenin to: " + currentGBar)
 
                 sY += tweenSpeed * delta
                 if (sY >= currentGBar) {
@@ -66,7 +66,7 @@ class GravityHandler(val mGameWorld: GameWorld) : Updateable {
                     shouldTween = false
                 }
             } else if (currentGBar < lastGBar) {
-                println("tweenin")
+              //  println("tweenin")
 
                 sY -= tweenSpeed * delta
                 if (sY <= currentGBar) {

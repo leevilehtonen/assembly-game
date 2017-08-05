@@ -9,7 +9,8 @@ import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 
-class Player(val body: Body, val texture: TextureRegion, val animation: PlayerAnimation) : PhysicsGameObject(texture) {
+class Player(body: Body, texture: TextureRegion, val animation: PlayerAnimation) : PhysicsGameObject(body, texture, 0f) {
+
 
     var playerState: PlayerState = PlayerState.POSITION_BOTTOM
     var lastState: PlayerState = PlayerState.POSITION_BOTTOM
@@ -80,4 +81,5 @@ class Player(val body: Body, val texture: TextureRegion, val animation: PlayerAn
         playerState = PlayerState.POSITION_INAIR
 
     }
+
 }

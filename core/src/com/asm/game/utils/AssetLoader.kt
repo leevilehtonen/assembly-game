@@ -6,7 +6,6 @@ import com.badlogic.gdx.assets.loaders.TextureAtlasLoader.TextureAtlasParameter
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
-import com.badlogic.gdx.graphics.g2d.freetype.FreeType
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 
 
@@ -14,6 +13,7 @@ class AssetLoader {
     var mAssetManager: AssetManager = AssetManager()
     lateinit var mBackgroundAtlas: TextureAtlas
     lateinit var mWalkAnimationAtlas: TextureAtlas
+    lateinit var mCoinAnimationAtlas: TextureAtlas
     lateinit var fontBig: BitmapFont
     lateinit var fontSmall: BitmapFont
 
@@ -57,6 +57,19 @@ class AssetLoader {
         }
     }
 
+    fun loadCoinAnimation() {
+        val textureAtlasParameter: TextureAtlasParameter = TextureAtlasParameter(false)
+        if (!mAssetManager.isLoaded("GameScreen/CoinAnimation.pack")) {
+            mAssetManager.load("GameScreen/CoinAnimation.pack", TextureAtlas::class.java, textureAtlasParameter)
+            mAssetManager.finishLoading()
+        }
+        mCoinAnimationAtlas = mAssetManager.get("GameScreen/CoinAnimation.pack", TextureAtlas::class.java)
+
+        mCoinAnimationAtlas.textures.forEach {
+            it.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
+        }
+    }
+
     fun unloadBackground() {
         if (mAssetManager.isLoaded("Background/Background.pack", TextureAtlas::class.java)) {
             mAssetManager.unload("Background/Background.pack")
@@ -67,6 +80,13 @@ class AssetLoader {
     fun unloadAnimations() {
         if (mAssetManager.isLoaded("GameScreen/WalkAnimation.pack", TextureAtlas::class.java)) {
             mAssetManager.unload("GameScreen/WalkAnimation.pack")
+            mWalkAnimationAtlas.dispose()
+        }
+    }
+
+    fun loadAnimations() {
+        if (mAssetManager.isLoaded("GameScreen/CoinAnimation.pack", TextureAtlas::class.java)) {
+            mAssetManager.unload("GameScreen/CoinAnimation.pack")
             mWalkAnimationAtlas.dispose()
         }
     }

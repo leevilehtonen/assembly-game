@@ -59,7 +59,7 @@ class GameRenderer(val mGame: AsmGdxGame, val mGameScreen: GameScreen, val mGame
 
 
 
-        debugRenderer.render(mGameWorld.physicsWorld.world, debugMatrix)
+        //debugRenderer.render(mGameWorld.physicsWorld.world, debugMatrix)
 
 
     }
