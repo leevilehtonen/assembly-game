@@ -25,17 +25,25 @@ class GameRenderer(val mGame: AsmGdxGame, val mGameScreen: GameScreen, val mGame
         mGame.mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled)
         mGame.mShapeRenderer.color = GameColors.GAME_BACKGROUND
         mGame.mShapeRenderer.rect(0F, 0F, Constants.GAME_WIDTH, Constants.GAME_HEIGHT)
+
+        mGame.mShapeRenderer.color = GameColors.GRAVITY_BAR
+
         mGame.mShapeRenderer.end()
 
         mGame.mSpriteBatch.begin()
 
-        mGameScreen.bitmapFont.setColor(1f,1f,1f,1f)
-        mGameScreen.bitmapFont.draw(mGame.mSpriteBatch, mGameWorld.gravString, Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT / 2)
-        mGameScreen.bitmapFontSmall.draw(mGame.mSpriteBatch, mGameWorld.gravTextString, Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT / 2 + 50f)
 
         mGameWorld.background.layers.forEach {it.sprites.forEach{it.draw(mGame.mSpriteBatch)}}
         mGameWorld.spawner.objects.forEach { it.sprite.draw(mGame.mSpriteBatch) }
         mGameWorld.objects.forEach { it.sprite.draw(mGame.mSpriteBatch) }
+
+
+        mGameScreen.bitmapFont.setColor(mGameWorld.coinTextColor)
+        mGameScreen.bitmapFont.draw(mGame.mSpriteBatch, mGameWorld.gravString, Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT / 2)
+        mGameScreen.bitmapFont.setColor(1f,1f,1f,1f)
+        mGameScreen.bitmapFontSmall.draw(mGame.mSpriteBatch, mGameWorld.gravTextString, Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT / 2 + 50f)
+        mGameScreen.bitmapFont.draw(mGame.mSpriteBatch, mGameWorld.player.coinString(), 40f, Constants.GAME_HEIGHT - 10)
+
         mGame.mSpriteBatch.end()
 
 

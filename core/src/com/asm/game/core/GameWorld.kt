@@ -7,6 +7,7 @@ import com.asm.game.objects.Player
 import com.asm.game.objects.PlayerAnimation
 import com.asm.game.screens.GameScreen
 import com.asm.game.utils.Constants
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.utils.TimeUtils
@@ -23,7 +24,8 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
     var counterSpeed: Long = 0L
     var gravTextString: String = "Time until change: "
     var gravString: String = ""
-
+    var coinTextColor: Color = Color(1f,1f,1f,1f)
+    var entitiesToRemove = gdxListOf<GameObject>()
     var objects = gdxListOf<GameObject>()
 
     init {
@@ -51,6 +53,7 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
         var playerTexture = animation.walkAnimation.getKeyFrame(0f)
         val playerBody: Body = physicsWorld.createPlayer(Vector2(500f, 500f), 200f, Constants.PLAYER_PHYSICS_TAG)
         player = Player(playerBody, playerTexture, animation)
+        playerBody.userData = player
         objects + player
     }
 
@@ -63,17 +66,33 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
         counterSpeed = TimeUtils.nanoTime()
     }
 
+    fun remove(it: GameObject){
+
+    }
+
     fun update(delta: Float) {
+        entitiesToRemove.forEach{
+            this.remove(it)
+        }
+        entitiesToRemove.clear()
         updateGravityString()
         physicsWorld.update(delta)
         background.update(delta)
         objects.forEach { it.update(delta) }
         spawner.update(delta)
         gravityHandler.update(delta)
-
+        checkCoinColor()
         if (TimeUtils.timeSinceNanos(counterSpeed) > Constants.SPEEDUPDATE_TARGET_TIME) {
             updateSpeed()
             counterSpeed = TimeUtils.nanoTime()
+        }
+    }
+
+    fun checkCoinColor(){
+        if(5 - TimeUtils.timeSinceNanos(gravityHandler.spawnTimer) / 1000000000f < 2f){
+            coinTextColor = Color(1f,0.1f,0.1f,1f)
+        } else {
+            coinTextColor = Color(1f,1f,1f,1f)
         }
     }
 
