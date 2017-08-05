@@ -4,10 +4,9 @@ import com.asm.game.AsmGdxGame
 import com.asm.game.objects.Background
 import com.asm.game.objects.GameObject
 import com.asm.game.objects.Player
+import com.asm.game.objects.PlayerAnimation
 import com.asm.game.screens.GameScreen
 import com.asm.game.utils.Constants
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.utils.TimeUtils
@@ -45,9 +44,10 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
     }
 
     private fun createPlayer() {
-        val playerTexture: Texture = Texture(Gdx.files.internal("GameScreen/Squid.png"))
-        val playerBody: Body = physicsWorld.createDynamicBody(Vector2(playerTexture.width.toFloat(), playerTexture.height.toFloat()), Vector2(500f, 500f), 30f, Constants.PLAYER_PHYSICS_TAG)
-        player = Player(playerBody, playerTexture)
+        val animation: PlayerAnimation = PlayerAnimation(mGame.mAssetLoader)
+        var playerTexture = animation.walkAnimation.getKeyFrame(0f)
+        val playerBody: Body = physicsWorld.createDynamicBody(Vector2(playerTexture.regionWidth.toFloat(), playerTexture.regionHeight.toFloat()), Vector2(500f, 500f), 30f, Constants.PLAYER_PHYSICS_TAG)
+        player = Player(playerBody, playerTexture, animation)
         objects + player
     }
 

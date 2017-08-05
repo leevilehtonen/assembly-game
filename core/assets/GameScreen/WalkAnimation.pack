@@ -1,0 +1,173 @@
+
+WalkAnimation.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+SquidWalk
+  rotate: false
+  xy: 1, 393
+  size: 95, 96
+  orig: 95, 96
+  offset: 0, 0
+  index: 1
+SquidWalk
+  rotate: false
+  xy: 1, 393
+  size: 95, 96
+  orig: 95, 96
+  offset: 0, 0
+  index: 24
+SquidWalk
+  rotate: false
+  xy: 1, 295
+  size: 95, 96
+  orig: 95, 96
+  offset: 0, 0
+  index: 2
+SquidWalk
+  rotate: false
+  xy: 98, 393
+  size: 95, 96
+  orig: 95, 96
+  offset: 0, 0
+  index: 3
+SquidWalk
+  rotate: false
+  xy: 1, 197
+  size: 95, 96
+  orig: 95, 96
+  offset: 0, 0
+  index: 4
+SquidWalk
+  rotate: false
+  xy: 98, 295
+  size: 95, 96
+  orig: 95, 96
+  offset: 0, 0
+  index: 5
+SquidWalk
+  rotate: false
+  xy: 195, 393
+  size: 95, 96
+  orig: 95, 96
+  offset: 0, 0
+  index: 6
+SquidWalk
+  rotate: false
+  xy: 1, 99
+  size: 95, 96
+  orig: 95, 96
+  offset: 0, 0
+  index: 7
+SquidWalk
+  rotate: false
+  xy: 98, 197
+  size: 95, 96
+  orig: 95, 96
+  offset: 0, 0
+  index: 8
+SquidWalk
+  rotate: false
+  xy: 195, 295
+  size: 95, 96
+  orig: 95, 96
+  offset: 0, 0
+  index: 9
+SquidWalk
+  rotate: false
+  xy: 292, 393
+  size: 95, 96
+  orig: 95, 96
+  offset: 0, 0
+  index: 10
+SquidWalk
+  rotate: false
+  xy: 1, 1
+  size: 95, 96
+  orig: 95, 96
+  offset: 0, 0
+  index: 11
+SquidWalk
+  rotate: false
+  xy: 98, 99
+  size: 95, 96
+  orig: 95, 96
+  offset: 0, 0
+  index: 12
+SquidWalk
+  rotate: false
+  xy: 195, 197
+  size: 95, 96
+  orig: 95, 96
+  offset: 0, 0
+  index: 13
+SquidWalk
+  rotate: false
+  xy: 292, 295
+  size: 95, 96
+  orig: 95, 96
+  offset: 0, 0
+  index: 14
+SquidWalk
+  rotate: false
+  xy: 389, 393
+  size: 95, 96
+  orig: 95, 96
+  offset: 0, 0
+  index: 15
+SquidWalk
+  rotate: false
+  xy: 98, 1
+  size: 95, 96
+  orig: 95, 96
+  offset: 0, 0
+  index: 16
+SquidWalk
+  rotate: false
+  xy: 195, 99
+  size: 95, 96
+  orig: 95, 96
+  offset: 0, 0
+  index: 17
+SquidWalk
+  rotate: false
+  xy: 292, 197
+  size: 95, 96
+  orig: 95, 96
+  offset: 0, 0
+  index: 18
+SquidWalk
+  rotate: false
+  xy: 389, 295
+  size: 95, 96
+  orig: 95, 96
+  offset: 0, 0
+  index: 19
+SquidWalk
+  rotate: false
+  xy: 195, 1
+  size: 95, 96
+  orig: 95, 96
+  offset: 0, 0
+  index: 20
+SquidWalk
+  rotate: false
+  xy: 292, 99
+  size: 95, 96
+  orig: 95, 96
+  offset: 0, 0
+  index: 21
+SquidWalk
+  rotate: false
+  xy: 389, 197
+  size: 95, 96
+  orig: 95, 96
+  offset: 0, 0
+  index: 22
+SquidWalk
+  rotate: false
+  xy: 292, 1
+  size: 95, 96
+  orig: 95, 96
+  offset: 0, 0
+  index: 23

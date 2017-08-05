@@ -4,18 +4,22 @@ import com.asm.game.utils.Constants
 import com.asm.game.utils.PlayerState
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
-import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.Body
 
-class Player(val body: Body, val texture: Texture) : PhysicsGameObject(texture) {
+class Player(val body: Body, val texture: TextureRegion, val animation: PlayerAnimation) : PhysicsGameObject(texture) {
 
     var playerState: PlayerState = PlayerState.POSITION_BOTTOM
     var lastState: PlayerState = PlayerState.POSITION_BOTTOM
     var rotate: Boolean = false
+    var walkStateTime: Float = 0f
 
     override fun update(delta: Float) {
         sprite.setPosition(Constants.BOX_TO_WORLD * body.position.x - sprite.width / 2, Constants.BOX_TO_WORLD * body.position.y - sprite.height / 2)
+        walkStateTime += delta
+        sprite.setRegion(animation.walkAnimation.getKeyFrame(walkStateTime, true))
+
 
         if (Gdx.input.isTouched && playerState != PlayerState.POSITION_INAIR) {
             jump()
