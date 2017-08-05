@@ -43,7 +43,8 @@ class Background(val mGame: AsmGdxGame, val speed: Float) {
             it.update(delta)
         }
     }
-    fun setSpeed(speed: Float) {
+
+    fun updateSpeed(speed: Float) {
         layers.forEach {
             it.speed = speed
         }

@@ -1,10 +1,8 @@
 package com.asm.game.core
 
-import com.asm.game.objects.GameObject
 import com.asm.game.objects.Obstacle
 import com.asm.game.objects.Updateable
 import com.asm.game.utils.Constants
-import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.math.MathUtils
@@ -15,8 +13,11 @@ import ktx.collections.gdxListOf
 class Spawner(val mGameWorld: GameWorld) : Updateable{
 
     var spawnTimer: Long = 0L
-    var objects = gdxListOf<GameObject>()
+    var objects = gdxListOf<Obstacle>()
     val obstacleTexture:Texture = Texture(Gdx.files.internal("GameScreen/Spikes.png"))
+    val obstacleInvTexture: Texture = Texture(Gdx.files.internal("GameScreen/SpikesInv.png"))
+    var speed: Float = Constants.DEFAULT_SPEED
+
 
 
     override fun update(delta: Float) {
@@ -24,27 +25,34 @@ class Spawner(val mGameWorld: GameWorld) : Updateable{
             objects + spawnObject()
             spawnTimer = TimeUtils.nanoTime()
         }
-        objects.forEach { gameObject: GameObject ->
-            gameObject.update(delta);
+        objects.iterate { gameObject, iterator ->
+            gameObject.update(delta)
+            if (gameObject.sprite.x < -gameObject.sprite.width) {
+                iterator.remove()
+            }
         }
-
     }
 
 
-    fun spawnObject():GameObject{
+    fun spawnObject(): Obstacle {
         val xBase = Constants.GAME_WIDTH + 300f
         val xDiff = MathUtils.random.nextInt(400)-200f
-        val top = MathUtils.random.nextBoolean();
+        val top = MathUtils.random.nextBoolean()
 
         if(top) {
-            var obstacleBody = mGameWorld.physicsWorld.createStaticBody(Vector2(obstacleTexture.width.toFloat(), obstacleTexture.height.toFloat()), Vector2(xBase + xDiff, obstacleTexture.height / 2 + 69f), 100f, Constants.OBSTACLE_PHYSICS_TAG)
-            var obstacle: Obstacle = Obstacle(obstacleBody, obstacleTexture, Constants.DEFAULT_SPEED, 14f)
-            return obstacle;
+            var obstacleBody = mGameWorld.physicsWorld.createStaticBody(Vector2(obstacleTexture.width.toFloat(), obstacleTexture.height.toFloat()), Vector2(xBase + xDiff, Constants.GAME_HEIGHT - (obstacleTexture.height / 2 + 69f)), 100f, Constants.OBSTACLE_PHYSICS_TAG)
+            var obstacle: Obstacle = Obstacle(obstacleBody, obstacleInvTexture, speed, 0f)
+            return obstacle
         } else {
             var obstacleBody = mGameWorld.physicsWorld.createStaticBody(Vector2(obstacleTexture.width.toFloat(), obstacleTexture.height.toFloat()), Vector2(xBase + xDiff, obstacleTexture.height / 2 + 69f), 100f, Constants.OBSTACLE_PHYSICS_TAG)
-            var obstacle: Obstacle = Obstacle(obstacleBody, obstacleTexture, Constants.DEFAULT_SPEED, 14f)
-            return obstacle;
+            var obstacle: Obstacle = Obstacle(obstacleBody, obstacleTexture, speed, 0f)
+            return obstacle
         }
+    }
+
+    fun updateSpeed(speed: Float) {
+        this.speed = speed
+        objects.forEach { it.speed = speed }
     }
 
 }

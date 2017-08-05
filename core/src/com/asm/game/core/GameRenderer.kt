@@ -31,7 +31,7 @@ class GameRenderer(val mGame: AsmGdxGame, val mGameScreen: GameScreen, val mGame
         mGameWorld.spawner.objects.forEach { it.sprite.draw(mGame.mSpriteBatch) }
         mGameWorld.objects.forEach { it.sprite.draw(mGame.mSpriteBatch) }
         mGame.mSpriteBatch.end()
-        //debugRenderer.render(mGameWorld.physicsWorld.world, debugMatrix)
+        debugRenderer.render(mGameWorld.physicsWorld.world, debugMatrix)
 
 
     }

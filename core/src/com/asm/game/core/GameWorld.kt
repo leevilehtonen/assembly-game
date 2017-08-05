@@ -19,6 +19,8 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
     lateinit var player: Player
     lateinit var physicsWorld: PhysicsWorld
     lateinit var spawner: Spawner
+    var speed: Float = Constants.DEFAULT_SPEED
+    var counterSpeed: Long = 0L
 
     var objects = gdxListOf<GameObject>()
 
@@ -53,6 +55,7 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
         physicsWorld.createStaticBody(Vector2(1024F, 69F), Vector2(Constants.GAME_WIDTH / 2, 32F), 40F, Constants.BORDER_BOTTOM_PHYSICS_TAG)
         physicsWorld.createStaticBody(Vector2(1024F, 69F), Vector2(Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT - 32F), 40F, Constants.BORDER_TOP_PHYSICS_TAG)
         spawner = Spawner(this)
+        counterSpeed = TimeUtils.nanoTime()
     }
 
     fun update(delta: Float) {
@@ -60,6 +63,17 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
         background.update(delta)
         objects.forEach { it.update(delta) }
         spawner.update(delta)
+
+        if (TimeUtils.timeSinceNanos(counterSpeed) > Constants.SPEEDUPDATE_TARGET_TIME) {
+            updateSpeed()
+            counterSpeed = TimeUtils.nanoTime()
+        }
+    }
+
+    fun updateSpeed() {
+        this.speed += 10f
+        this.background.updateSpeed(speed)
+        this.spawner.updateSpeed(speed)
     }
 }
 
