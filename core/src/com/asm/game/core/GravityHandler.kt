@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.TimeUtils
 import ktx.collections.gdxArrayOf
 import ktx.collections.gdxMapOf
 
-class GravityHandler(val mGameWorld: GameWorld): Updateable {
+class GravityHandler(val mGameWorld: GameWorld) : Updateable {
 
     var spawnTimer: Long = TimeUtils.nanoTime()
     var speed: Float = Constants.DEFAULT_SPEED
@@ -18,31 +18,34 @@ class GravityHandler(val mGameWorld: GameWorld): Updateable {
     var lastGBar = currentGBar
     var currentGravity = mGameWorld.physicsWorld.world.gravity.y
     val sX = 50f
+    var sY = currentGBar
     var mX = 40f
     var mY = 240f
+    var counter = 0f
+    var tweenSpeed = 10f
+    var shouldTween = false
 
-
-    fun getX(): Float{
+    fun getX(): Float {
         return mX
     }
 
     fun getSizeY(): Float {
-        return currentGBar
+        return sY
     }
 
-    fun getSizeX(): Float{
+    fun getSizeX(): Float {
         return sX
     }
 
     fun getY(): Float {
-        if(currentGravity > 0f){
+        if (currentGravity < 0f) {
             return mY
         } else {
-            return mY + currentGBar
+            return mY - currentGBar
         }
     }
 
-    fun topX(){
+    fun topX() {
 
     }
 
@@ -55,9 +58,32 @@ class GravityHandler(val mGameWorld: GameWorld): Updateable {
             changeGravity()
             spawnTimer = TimeUtils.nanoTime()
         }
+        if (shouldTween) {
+            if (currentGravity > 0) {
+                if (currentGBar > lastGBar) {
+                    sY += tweenSpeed * delta
+                    if(sY >= currentGBar) sY = currentGBar
+                }else{
+                    sY -= tweenSpeed * delta
+                    if(sY <= currentGBar) sY = currentGBar
+                }
+
+            } else {
+                if (currentGBar < lastGBar) {
+                    sY += tweenSpeed * delta
+
+                    if(sY >= currentGBar) sY = currentGBar
+                }else{
+                    sY -= tweenSpeed * delta
+                    if(sY <= currentGBar) sY = currentGBar
+                }
+            }
+
+        }
     }
 
     fun changeGravity() {
+        shouldTween = true
         val gIndex = MathUtils.random.nextInt(gValues.size)
         val inverted = MathUtils.random.nextBoolean()
         val gravity = if (inverted) gValues[gIndex] else (-gValues[gIndex])

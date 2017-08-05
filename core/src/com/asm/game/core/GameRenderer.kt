@@ -25,10 +25,6 @@ class GameRenderer(val mGame: AsmGdxGame, val mGameScreen: GameScreen, val mGame
         mGame.mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled)
         mGame.mShapeRenderer.color = GameColors.GAME_BACKGROUND
         mGame.mShapeRenderer.rect(0F, 0F, Constants.GAME_WIDTH, Constants.GAME_HEIGHT)
-
-        mGame.mShapeRenderer.color = GameColors.GRAVITY_BAR
-        mGame.mShapeRenderer.rect( mGameWorld.gravityHandler.getX(), mGameWorld.gravityHandler.getY(), mGameWorld.gravityHandler.getSizeX(), mGameWorld.gravityHandler.getSizeY())
-
         mGame.mShapeRenderer.end()
 
         mGame.mSpriteBatch.begin()
@@ -46,6 +42,11 @@ class GameRenderer(val mGame: AsmGdxGame, val mGameScreen: GameScreen, val mGame
         mGameScreen.bitmapFont.draw(mGame.mSpriteBatch, mGameWorld.player.coinString(), 40f, Constants.GAME_HEIGHT - 10)
 
         mGame.mSpriteBatch.end()
+
+        mGame.mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled)
+        mGame.mShapeRenderer.color = GameColors.GRAVITY_BAR
+        mGame.mShapeRenderer.rect( mGameWorld.gravityHandler.getX(), mGameWorld.gravityHandler.getY(), mGameWorld.gravityHandler.getSizeX(), mGameWorld.gravityHandler.getSizeY())
+        mGame.mShapeRenderer.end()
 
 
 
