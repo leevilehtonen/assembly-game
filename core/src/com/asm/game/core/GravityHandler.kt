@@ -13,14 +13,16 @@ class GravityHandler(val mGameWorld: GameWorld) : Updateable {
     var spawnTimer: Long = TimeUtils.nanoTime()
     var speed: Float = Constants.DEFAULT_SPEED
     val gValues = gdxArrayOf<Float>(-10f, -15f, -25f)
-    val gBarValue = gdxMapOf(-10f to 75f, -15f to 100f, -25f to 150f, 10f to 75f, 15f to 100f, 25f to 150f)
+    //val gBarValue = gdxMapOf(-25f to 0f, -15f to 20f, -10f to 40f, 10f to 60f, 15f to 80f, 25f to 100f)
+    val gBarValue = gdxMapOf(-25f to -20f, -15f to -15f, -10f to -5f, 10f to 5f, 15f to 10f, 25f to 20f)
+
     var currentGBar = 75f
     var lastGBar = currentGBar
     var currentGravity = mGameWorld.physicsWorld.world.gravity.y
-    val sX = 50f
-    var sY = currentGBar
-    var mX = 40f
-    var mY = 240f
+    val sX = 15f
+    var sY = gBarValue[10f]
+    var mX = Constants.GAME_WIDTH /2 + 100f
+    var mY = Constants.GAME_HEIGHT / 2
     var lastGravity = currentGravity
     var bX = mX
     var bY = mY
@@ -33,29 +35,16 @@ class GravityHandler(val mGameWorld: GameWorld) : Updateable {
         return mX
     }
 
-    fun getSizeY(): Float {
-        if (sY < 0) return sY else return sY
+    fun getY(): Float {
+        return mY
     }
 
-    fun getSizeX(): Float {
+    fun sizeX(): Float {
         return sX
     }
 
-    fun getY(): Float {
-        if (currentGravity > 0f) {
-            return mY
-        } else {
-            // return bY
-            return mY - sY
-        }
-    }
-
-    fun topX() {
-
-    }
-
-    fun topY() {
-
+    fun sizeY(): Float {
+        return sY * 10
     }
 
     override fun update(delta: Float) {
@@ -64,62 +53,26 @@ class GravityHandler(val mGameWorld: GameWorld) : Updateable {
             spawnTimer = TimeUtils.nanoTime()
         }
 
-        tweenSpeed = Math.abs(lastGBar - currentGBar) * 10f
+        //tweenSpeed = Math.abs(lastGBar - currentGBar) * 1000000f
+        tweenSpeed = 100f
+        if (shouldTween) {
 
-        if (currentGravity > 0) {
-            bY = mY
             if (currentGBar > lastGBar) {
+                println("tweenin to: " + currentGBar)
+
                 sY += tweenSpeed * delta
                 if (sY >= currentGBar) {
-
                     sY = currentGBar
+                    shouldTween = false
                 }
-            } else {
+            } else if (currentGBar < lastGBar) {
+                println("tweenin")
+
                 sY -= tweenSpeed * delta
                 if (sY <= currentGBar) {
-
                     sY = currentGBar
-                } else if(sY <= 0){
-                    sY += tweenSpeed * delta
-                    bY -= tweenSpeed * delta
-                    if (sY >= currentGBar) {
-                        sY = currentGBar
-                        bY = currentGBar + mY
-
-                    }
+                    shouldTween = false
                 }
-            }
-
-        } else if (currentGravity < 0) {
-            if (currentGBar < lastGBar) {
-                println("current on pienempi" + sY + "   " + bY)
-                sY -= tweenSpeed * delta
-                bY += tweenSpeed * delta
-
-                if (sY <= currentGBar) {
-
-                    sY = currentGBar
-                    bY = currentGBar + mY
-                } else if(sY <= 0){
-                    sY += tweenSpeed * delta
-                    if (sY >= currentGBar) {
-
-                        sY = currentGBar
-                    }
-                }
-
-            }
-        } else {
-            println("current on isompi" + sY + "   " + bY)
-
-            sY += tweenSpeed * delta
-            bY -= tweenSpeed * delta
-            if (sY >= currentGBar) {
-                sY = currentGBar
-                bY = currentGBar + mY
-
-            } else if(sY >= currentGBar && lastGravity > 0){
-                sY = tweenSpeed * delta
             }
         }
 

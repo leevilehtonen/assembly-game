@@ -38,18 +38,23 @@ class GameRenderer(val mGame: AsmGdxGame, val mGameScreen: GameScreen, val mGame
 
 
         mGameScreen.bitmapFont.setColor(mGameWorld.coinTextColor)
-        mGameScreen.bitmapFont.draw(mGame.mSpriteBatch, mGameWorld.gravString, Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT / 2)
+        mGameScreen.bitmapFont.draw(mGame.mSpriteBatch, mGameWorld.gravString, Constants.GAME_WIDTH / 2 + 150, Constants.GAME_HEIGHT / 2)
         mGameScreen.bitmapFont.setColor(1f,1f,1f,1f)
-        mGameScreen.bitmapFontSmall.draw(mGame.mSpriteBatch, mGameWorld.gravTextString, Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT / 2 + 50f)
+        mGameScreen.bitmapFontSmall.draw(mGame.mSpriteBatch, mGameWorld.gravTextString, Constants.GAME_WIDTH / 2 + 150, Constants.GAME_HEIGHT / 2 + 50f)
         mGameScreen.bitmapFont.draw(mGame.mSpriteBatch,"Gravity: " + mGameWorld.gravityHandler.currentGravity.toString(), 200f, Constants.GAME_HEIGHT - 10f )
         mGameScreen.bitmapFont.draw(mGame.mSpriteBatch, mGameWorld.player.coinString(), 40f, Constants.GAME_HEIGHT - 10)
+        mGameScreen.bitmapFont.draw(mGame.mSpriteBatch, mGameWorld.player.pointString(), 500f, Constants.GAME_HEIGHT - 10)
 
         mGame.mSpriteBatch.end()
 
         mGame.mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled)
         mGame.mShapeRenderer.color = GameColors.GRAVITY_BAR
 
-        mGame.mShapeRenderer.rect( mGameWorld.gravityHandler.getX(), mGameWorld.gravityHandler.getY(), mGameWorld.gravityHandler.getSizeX(), mGameWorld.gravityHandler.getSizeY())
+        mGame.mShapeRenderer.rect( mGameWorld.gravityHandler.getX(), mGameWorld.gravityHandler.getY(), mGameWorld.gravityHandler.sizeX(), mGameWorld.gravityHandler.sizeY())
+        mGame.mShapeRenderer.color = GameColors.GRAVITY_BAR_MID
+
+        mGame.mShapeRenderer.rect( mGameWorld.gravityHandler.getX()- 30f, mGameWorld.gravityHandler.getY() - 10f, 60f,20f)
+
         mGame.mShapeRenderer.end()
 
 

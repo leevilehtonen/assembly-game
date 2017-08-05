@@ -66,6 +66,9 @@ class Player(val body: Body, val texture: TextureRegion, val animation: PlayerAn
     fun coinString(): String{
        return "Coins: " + coins
     }
+    fun pointString(): String{
+        return "Points: " + points
+    }
 
     fun jump() {
         if (playerState == PlayerState.POSITION_TOP) {
