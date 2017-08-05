@@ -22,7 +22,7 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
     lateinit var gravityHandler: GravityHandler
     var speed: Float = Constants.DEFAULT_SPEED
     var counterSpeed: Long = 0L
-    var gravTextString: String = "Time until change: "
+    var gravTextString: String = "Gravity swap in: "
     var gravString: String = ""
     var coinTextColor: Color = Color(1f,1f,1f,1f)
     var objects = gdxListOf<GameObject>()

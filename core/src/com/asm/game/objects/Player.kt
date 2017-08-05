@@ -57,7 +57,7 @@ class Player(body: Body, texture: TextureRegion, val animation: PlayerAnimation)
     }
 
     fun coinString(): String{
-       return "Coins: " + coins
+       return coins.toString()
     }
     fun pointString(): String{
         return "Points: " + points.toInt()
