@@ -58,7 +58,6 @@ class GameRenderer(val mGame: AsmGdxGame, val mGameScreen: GameScreen, val mGame
         renderPoints()
 
         coinSprite.draw(mGame.mSpriteBatch)
-        println(coinSprite.x.toString() + "    " + coinSprite.y)
         mGame.mSpriteBatch.end()
 
         renderGravity()

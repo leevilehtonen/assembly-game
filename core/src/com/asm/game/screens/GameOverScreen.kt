@@ -1,6 +1,7 @@
 package com.asm.game.screens
 
 import com.asm.game.AsmGdxGame
+import com.asm.game.objects.CoinAnimation
 import com.asm.game.utils.Constants
 import com.asm.game.utils.GameColors
 import com.badlogic.gdx.Gdx
@@ -9,6 +10,7 @@ import com.badlogic.gdx.graphics.GL30
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
+import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.scenes.scene2d.InputEvent
@@ -26,7 +28,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle
 
 
 
-class GameOverScreen(var mGame: AsmGdxGame) : KtxScreen {
+class GameOverScreen(var mGame: AsmGdxGame, var coins:Int, var score:Float) : KtxScreen {
 
     lateinit var mCamera: OrthographicCamera
     lateinit var mViewport: FitViewport
@@ -34,6 +36,10 @@ class GameOverScreen(var mGame: AsmGdxGame) : KtxScreen {
     lateinit var mTable: Table
     lateinit var bitmapFont: BitmapFont
     lateinit var bitmapFontSmall: BitmapFont
+    lateinit var coinImage: Image
+
+    val coinAnim: CoinAnimation = CoinAnimation(mGame.mAssetLoader)
+    var stateTime: Float = 0f
 
 
     init {
@@ -63,9 +69,19 @@ class GameOverScreen(var mGame: AsmGdxGame) : KtxScreen {
         restartButtonStyle.up = TextureRegionDrawable(TextureRegion(Texture(Gdx.files.internal("GameOverScreen/RestartButton.png"))))
         quitButtonStyle.up = TextureRegionDrawable(TextureRegion(Texture(Gdx.files.internal("GameOverScreen/QuitButton.png"))))
 
+        var mStartLogoTexture: Texture = Texture(Gdx.files.internal("GameOverScreen/logo.png"))
+        mStartLogoTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
+        var mStartLogoImage: Image = Image(mStartLogoTexture)
 
-        var coinsLabel:Label = Label("Coins: 0", smallLabelStyle)
-        var scoreLabel:Label = Label("Score: 0", smallLabelStyle)
+        coinImage = Image(coinAnim.coinAnimation.getKeyFrame(0f));
+
+        var headerCoinsText:Label = Label("Coins ", largeLabelStyle)
+        var valueCoinsText:Label = Label(" × $coins + ", smallLabelStyle)
+        var headerScoreText:Label = Label("Score ", largeLabelStyle)
+        var valueScoreText:Label = Label(score.toInt().toString() +" = ", smallLabelStyle)
+        var headerTotalText:Label = Label("Total", largeLabelStyle)
+        var total:Int = coins.toInt() * 100 + score.toInt()
+        var valueTotalText:Label = Label(total.toString(), smallLabelStyle)
 
 
 
@@ -88,10 +104,19 @@ class GameOverScreen(var mGame: AsmGdxGame) : KtxScreen {
                 super.clicked(event, x, y)
             }
         })
-        mTable.add(coinsLabel)
-        mTable.add(scoreLabel)
-        mTable.add(restartBtn).pad(10F)
-        mTable.add(quitBtn).pad(10F)
+        mTable.add(mStartLogoImage).size(mStartLogoImage.width * 0.5f, mStartLogoImage.height*0.5f).center().colspan(4)
+        mTable.row()
+        mTable.add(headerCoinsText).left().colspan(2)
+        mTable.add(headerScoreText).left()
+        mTable.add(headerTotalText).left()
+        mTable.row()
+        mTable.add(coinImage).size(64f).left()
+        mTable.add(valueCoinsText).left()
+        mTable.add(valueScoreText).left()
+        mTable.add(valueTotalText).left()
+        mTable.row()
+        mTable.add(restartBtn).colspan(2).padRight(10f).padTop(32f).left()
+        mTable.add(quitBtn).colspan(2).padLeft(10f).padTop(32f).left()
         mStage.addActor(mTable)
 
 
@@ -113,9 +138,14 @@ class GameOverScreen(var mGame: AsmGdxGame) : KtxScreen {
     override fun render(delta: Float) {
         super.render(delta)
 
+        stateTime += delta
+        coinImage.drawable = TextureRegionDrawable(coinAnim.coinAnimation.getKeyFrame(stateTime, true))
+
         Gdx.gl.glClearColor(0F, 0F, 0F, 1F)
         Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT or GL30.GL_DEPTH_BUFFER_BIT)
         Gdx.gl.glEnable(GL30.GL_BLEND)
+
+
 
         mStage.draw()
         mStage.act()

@@ -89,7 +89,7 @@ class GameScreen(val mGame: AsmGdxGame) : KtxScreen {
     }
 
     fun gameOver() {
-        mGame.addScreen(GameOverScreen(mGame))
+        mGame.addScreen(GameOverScreen(mGame, mGameWorld.player.coins, mGameWorld.player.points))
         mGame.setScreen<GameOverScreen>()
     }
 }

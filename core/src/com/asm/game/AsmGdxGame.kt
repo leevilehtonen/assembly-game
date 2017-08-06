@@ -1,5 +1,6 @@
 package com.asm.game
 
+import com.asm.game.screens.GameOverScreen
 import com.asm.game.screens.GameScreen
 import com.asm.game.screens.SplashScreen
 import com.asm.game.utils.AssetLoader
@@ -26,7 +27,6 @@ class AsmGdxGame : KtxGame<Screen>() {
         mAssetLoader.loadWalkAnimation()
         mAssetLoader.loadFonts()
         mAssetLoader.loadCoinAnimation()
-        //addScreen(GameScreen(this))
         setScreen<SplashScreen>()
     }
 

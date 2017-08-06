@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.*
 import ktx.box2d.body
 import ktx.box2d.createWorld
+import ktx.box2d.filter
 
 
 class PhysicsWorld(val mGameWorld: GameWorld) {
@@ -116,6 +117,7 @@ class PhysicsWorld(val mGameWorld: GameWorld) {
                 this.density = density
                 this.filter.categoryBits = category.toShort()
                 this.restitution = 0.1f
+
             }
 
         }
