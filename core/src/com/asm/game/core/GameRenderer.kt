@@ -89,7 +89,7 @@ class GameRenderer(val mGame: AsmGdxGame, val mGameScreen: GameScreen, val mGame
         mGameScreen.bitmapFontSmall.setColor(mGameWorld.coinTextColor)
 
         mGameScreen.bitmapFontBig.draw(mGame.mSpriteBatch, mGameWorld.gravString, Constants.GAME_WIDTH / 2 - 50, Constants.GAME_HEIGHT / 2 + 140)
-        mGameScreen.bitmapFontSmall.draw(mGame.mSpriteBatch, mGameWorld.gravTextString, Constants.GAME_WIDTH / 2 - 50, Constants.GAME_HEIGHT / 2 + 160f)
+        mGameScreen.bitmapFontSmall.draw(mGame.mSpriteBatch, mGameWorld.gravTextString, Constants.GAME_WIDTH / 2 - 55, Constants.GAME_HEIGHT / 2 + 175f)
         mGameScreen.bitmapFontBig.setColor(Color(1f, 1f, 1f, 1f))
         mGameScreen.bitmapFontSmall.setColor(Color(1f, 1f, 1f, 1f))
     }
