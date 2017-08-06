@@ -41,7 +41,7 @@ class GameRenderer(val mGame: AsmGdxGame, val mGameScreen: GameScreen, val mGame
         mGame.mShapeRenderer.rect(0F, 0F, Constants.GAME_WIDTH, Constants.GAME_HEIGHT)
         mGame.mShapeRenderer.end()
 
-    renderDebug()
+        //renderDebug()
         stateTime += delta
         coinSprite.setRegion(coinAnim.coinAnimation.getKeyFrame(stateTime, true))
 
@@ -73,11 +73,11 @@ class GameRenderer(val mGame: AsmGdxGame, val mGameScreen: GameScreen, val mGame
 
     }
 
-    private fun renderDebug(){
+    private fun renderDebug() {
         mGame.mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled)
-        mGame.mShapeRenderer.color = Color(1f,0f,0f,1f)
-        mGame.mShapeRenderer.rect(Constants.GAME_WIDTH / 2, 0f,20f,Constants.GAME_HEIGHT)
-        mGame.mShapeRenderer.rect(Constants.GAME_WIDTH / 5, 0f,20f,Constants.GAME_HEIGHT)
+        mGame.mShapeRenderer.color = Color(1f, 0f, 0f, 1f)
+        mGame.mShapeRenderer.rect(Constants.GAME_WIDTH / 2, 0f, 20f, Constants.GAME_HEIGHT)
+        mGame.mShapeRenderer.rect(Constants.GAME_WIDTH / 5, 0f, 20f, Constants.GAME_HEIGHT)
         mGame.mShapeRenderer.end()
     }
 
@@ -90,9 +90,9 @@ class GameRenderer(val mGame: AsmGdxGame, val mGameScreen: GameScreen, val mGame
         mGameScreen.bitmapFontSmall.setColor(mGameWorld.coinTextColor)
 
         mGameScreen.bitmapFontBig.draw(mGame.mSpriteBatch, mGameWorld.gravString, Constants.GAME_WIDTH / 2 - 50, Constants.GAME_HEIGHT / 2 + 140)
-        mGameScreen.bitmapFontSmall.draw(mGame.mSpriteBatch, mGameWorld.gravTextString, Constants.GAME_WIDTH / 2 -50, Constants.GAME_HEIGHT / 2 + 160f)
-        mGameScreen.bitmapFontBig.setColor(Color(1f,1f,1f,1f))
-        mGameScreen.bitmapFontSmall.setColor(Color(1f,1f,1f,1f))
+        mGameScreen.bitmapFontSmall.draw(mGame.mSpriteBatch, mGameWorld.gravTextString, Constants.GAME_WIDTH / 2 - 50, Constants.GAME_HEIGHT / 2 + 160f)
+        mGameScreen.bitmapFontBig.setColor(Color(1f, 1f, 1f, 1f))
+        mGameScreen.bitmapFontSmall.setColor(Color(1f, 1f, 1f, 1f))
     }
 
     fun renderGravity() {

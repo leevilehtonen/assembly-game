@@ -61,14 +61,11 @@ class Player(body: Body, texture: TextureRegion, val animation: PlayerAnimation)
         println(sprite.x)
         var forceMultiplier = 1f / distance * 10
         if (distance < width / 2) {
-            println("too far")
             forceMultiplier *= -1
         } else if(distance <= width / 2 + width / 4 && distance >=width / 2){
-            println("ideal")
             forceMultiplier  = 0f
         } else {
-            println("behind")
-            forceMultiplier = 0.2f
+            forceMultiplier *= 0.2f
         }
 
         this.body.applyLinearImpulse(Vector2(Constants.PUSH_FORCE * forceMultiplier, 0f), body.position, true)
