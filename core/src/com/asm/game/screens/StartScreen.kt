@@ -17,7 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.viewport.FitViewport
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const
 import ktx.app.KtxScreen
 
 
@@ -91,7 +90,6 @@ class StartScreen(var mGame: AsmGdxGame) : KtxScreen {
         })
 
         mTable.add(playBtn).pad(10F)
-        mTable.add(aboutBtn).pad(10F)
         mTable.add(quitBtn).pad(10F)
         mStage.addActor(mTable)
 

@@ -58,7 +58,6 @@ class Player(body: Body, texture: TextureRegion, val animation: PlayerAnimation)
     fun applyForce() {
         val width = Constants.GAME_WIDTH
         val distance = Math.abs((sprite.x + sprite.width / 2) - width)
-        println(sprite.x)
         var forceMultiplier = 1f / distance * 10
         if (distance < width / 2) {
             forceMultiplier *= -1

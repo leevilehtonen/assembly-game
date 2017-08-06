@@ -55,7 +55,6 @@ class Spawner(val mGameWorld: GameWorld) : Updateable {
     }
 
     fun deleteObject(physicsGameObject: PhysicsGameObject) {
-        println("dell")
         if (!objectsToRemove.contains(physicsGameObject)) {
             objectsToRemove.add(physicsGameObject)
         }
