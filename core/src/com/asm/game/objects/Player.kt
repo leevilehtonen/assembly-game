@@ -68,6 +68,7 @@ class Player(body: Body, texture: TextureRegion, val animation: PlayerAnimation)
             forceMultiplier  = 0f
         } else {
             println("behind")
+            forceMultiplier = 0.2f
         }
 
         this.body.applyLinearImpulse(Vector2(Constants.PUSH_FORCE * forceMultiplier, 0f), body.position, true)
