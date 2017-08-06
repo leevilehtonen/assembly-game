@@ -58,12 +58,12 @@ class PhysicsWorld(val mGameWorld: GameWorld) {
 
                 }
 
-                if (fixABits == Constants.OBSTACLE_PHYSICS_TAG &&
+                if (fixABits == Constants.FATAL_OBSTACLE_PHYSICS_TAG &&
                         fixBBits == Constants.PLAYER_PHYSICS_TAG) {
                     mGameWorld.mGameScreen.gameOver();
                     //GAMEOVER
 
-                } else if (fixBBits == Constants.OBSTACLE_PHYSICS_TAG &&
+                } else if (fixBBits == Constants.FATAL_OBSTACLE_PHYSICS_TAG &&
                         fixABits == Constants.PLAYER_PHYSICS_TAG) {
                     mGameWorld.mGameScreen.gameOver();
 
@@ -84,7 +84,8 @@ class PhysicsWorld(val mGameWorld: GameWorld) {
 
                 if ((fixABits == Constants.PLAYER_PHYSICS_TAG && fixBBits == Constants.BORDER_SIDE_PHYSICS_TAG) || (fixABits == Constants.BORDER_SIDE_PHYSICS_TAG && fixBBits == Constants.PLAYER_PHYSICS_TAG)) {
                     impulse.normalImpulses.forEach {
-                        if (it > 100f) {
+                        if (it > 300f) {
+                            mGameWorld.mGameScreen.gameOver();
                             return
                         }
                     }
@@ -135,15 +136,17 @@ class PhysicsWorld(val mGameWorld: GameWorld) {
         }
     }
 
-    fun createStaticBody(size: Vector2, position: Vector2, density: Float, category: Int): Body {
+    fun createStaticBody(size: Vector2, position: Vector2, density: Float, category: Int, sensor: Boolean): Body {
         return world.body(BodyDef.BodyType.StaticBody) {
             this.position.set(position.x * Constants.WORLD_TO_BOX, position.y * Constants.WORLD_TO_BOX)
             this.allowSleep = false
             box(width = size.x * Constants.WORLD_TO_BOX, height = size.y * Constants.WORLD_TO_BOX) {
                 this.density = density
                 this.filter.categoryBits = category.toShort()
+                this.isSensor = sensor
             }
         }
+
     }
 
 }

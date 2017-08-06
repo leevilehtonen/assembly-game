@@ -22,7 +22,7 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
     lateinit var gravityHandler: GravityHandler
     var speed: Float = Constants.DEFAULT_SPEED
     var counterSpeed: Long = 0L
-    var gravTextString: String = "Gravity swap in: "
+    var gravTextString: String = ""
     var gravString: String = ""
     var coinTextColor: Color = Color(1f,1f,1f,1f)
     var objects = gdxListOf<GameObject>()
@@ -58,9 +58,9 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
     }
 
     fun createMap() {
-        physicsWorld.createStaticBody(Vector2(2048F, 69F), Vector2(Constants.GAME_WIDTH / 2, 32F), 40F, Constants.BORDER_BOTTOM_PHYSICS_TAG)
-        physicsWorld.createStaticBody(Vector2(2045F, 69F), Vector2(Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT - 32F), 40F, Constants.BORDER_TOP_PHYSICS_TAG)
-        physicsWorld.createStaticBody(Vector2(60f, 1024F), Vector2(0f, Constants.GAME_HEIGHT / 2f), 40F, Constants.BORDER_SIDE_PHYSICS_TAG)
+        physicsWorld.createStaticBody(Vector2(2048F, 69F), Vector2(Constants.GAME_WIDTH / 2, 32F), 40F, Constants.BORDER_BOTTOM_PHYSICS_TAG, false)
+        physicsWorld.createStaticBody(Vector2(2045F, 69F), Vector2(Constants.GAME_WIDTH / 2, Constants.GAME_HEIGHT - 32F), 40F, Constants.BORDER_TOP_PHYSICS_TAG, false)
+        physicsWorld.createStaticBody(Vector2(60f, 1024F), Vector2(0f, Constants.GAME_HEIGHT / 2f), 40F, Constants.BORDER_SIDE_PHYSICS_TAG, false)
 
         spawner = Spawner(this)
         counterSpeed = TimeUtils.nanoTime()
@@ -91,7 +91,7 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
     }
 
     fun checkCoinColor(){
-        if(Constants.GRAVITY_INTERVAL / 1000000000 - TimeUtils.timeSinceNanos(gravityHandler.spawnTimer) / 1000000000f < 2f){
+        if(Constants.GRAVITY_INTERVAL / 1000000000 - TimeUtils.timeSinceNanos(gravityHandler.spawnTimer) / 1000000000f < 5f){
             coinTextColor = Color(1f,0.1f,0.1f,1f)
         } else {
             coinTextColor = Color(1f,1f,1f,1f)
@@ -99,7 +99,14 @@ class GameWorld(val mGame: AsmGdxGame, val mGameScreen: GameScreen) {
     }
 
     fun updateGravityString(){
-        gravString = ((Constants.GRAVITY_INTERVAL / 1000000000 - TimeUtils.timeSinceNanos(gravityHandler.spawnTimer) / 1000000000f)).toString().take(3)
+        val value = (Constants.GRAVITY_INTERVAL / 1000000000f - TimeUtils.timeSinceNanos(gravityHandler.spawnTimer) / 1000000000f)
+        if(value < 5) {
+            gravString = value.toString().take(1) + "." + value.toString()[2]
+            gravTextString = "Gravity Swaps!"
+        } else {
+            gravString = ""
+            gravTextString = ""
+        }
     }
 
 

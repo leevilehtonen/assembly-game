@@ -14,6 +14,7 @@ class AssetLoader {
     lateinit var mBackgroundAtlas: TextureAtlas
     lateinit var mWalkAnimationAtlas: TextureAtlas
     lateinit var mCoinAnimationAtlas: TextureAtlas
+    lateinit var font: BitmapFont
     lateinit var fontBig: BitmapFont
     lateinit var fontSmall: BitmapFont
 
@@ -22,10 +23,13 @@ class AssetLoader {
         val freeTypeFontParameter = FreeTypeFontGenerator.FreeTypeFontParameter()
         freeTypeFontParameter.magFilter = Texture.TextureFilter.Linear
         freeTypeFontParameter.minFilter = Texture.TextureFilter.Linear
-        freeTypeFontParameter.size = 40
+        freeTypeFontParameter.size = 100
         fontBig = freeTypeFontGenerator.generateFont(freeTypeFontParameter)
         freeTypeFontParameter.size = 24
         fontSmall = freeTypeFontGenerator.generateFont(freeTypeFontParameter)
+        freeTypeFontParameter.size = 40
+        font = freeTypeFontGenerator.generateFont(freeTypeFontParameter)
+
         freeTypeFontGenerator.dispose()
     }
 

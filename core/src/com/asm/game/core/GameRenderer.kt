@@ -6,6 +6,7 @@ import com.asm.game.screens.GameScreen
 import com.asm.game.utils.Constants
 import com.asm.game.utils.GameColors
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
@@ -40,7 +41,7 @@ class GameRenderer(val mGame: AsmGdxGame, val mGameScreen: GameScreen, val mGame
         mGame.mShapeRenderer.rect(0F, 0F, Constants.GAME_WIDTH, Constants.GAME_HEIGHT)
         mGame.mShapeRenderer.end()
 
-
+    renderDebug()
         stateTime += delta
         coinSprite.setRegion(coinAnim.coinAnimation.getKeyFrame(stateTime, true))
 
@@ -51,25 +52,50 @@ class GameRenderer(val mGame: AsmGdxGame, val mGameScreen: GameScreen, val mGame
         mGameWorld.objects.forEach { it.sprite.draw(mGame.mSpriteBatch) }
 
 
-        mGameScreen.bitmapFont.setColor(mGameWorld.coinTextColor)
-        mGameScreen.bitmapFont.draw(mGame.mSpriteBatch, mGameWorld.gravString, Constants.GAME_WIDTH / 2 + 150, Constants.GAME_HEIGHT / 2)
-        mGameScreen.bitmapFont.setColor(1f, 1f, 1f, 1f)
-        mGameScreen.bitmapFontSmall.draw(mGame.mSpriteBatch, mGameWorld.gravTextString, Constants.GAME_WIDTH / 2 + 150, Constants.GAME_HEIGHT / 2 + 50f)
-        mGameScreen.bitmapFont.draw(mGame.mSpriteBatch, "×" + mGameWorld.player.coinString(), 70f, Constants.GAME_HEIGHT - 7)
-        mGameScreen.bitmapFont.draw(mGame.mSpriteBatch, mGameWorld.player.pointString(), 500f, Constants.GAME_HEIGHT - 10)
+        renderGravityWarning()
+
+        renderCoins()
+        renderPoints()
 
         coinSprite.draw(mGame.mSpriteBatch)
         println(coinSprite.x.toString() + "    " + coinSprite.y)
         mGame.mSpriteBatch.end()
 
-      renderGravity()
+        renderGravity()
 
         //debugRenderer.render(mGameWorld.physicsWorld.world, debugMatrix)
 
 
     }
 
-    fun renderGravity(){
+    private fun renderPoints() {
+        mGameScreen.bitmapFont.draw(mGame.mSpriteBatch, mGameWorld.player.pointString(), Constants.GAME_WIDTH - this.calculateWidth(mGameWorld.player.pointString()), Constants.GAME_HEIGHT - 10)
+
+    }
+
+    private fun renderDebug(){
+        mGame.mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled)
+        mGame.mShapeRenderer.color = Color(1f,0f,0f,1f)
+        mGame.mShapeRenderer.rect(Constants.GAME_WIDTH / 2, 0f,20f,Constants.GAME_HEIGHT)
+        mGame.mShapeRenderer.rect(Constants.GAME_WIDTH / 5, 0f,20f,Constants.GAME_HEIGHT)
+        mGame.mShapeRenderer.end()
+    }
+
+    private fun renderCoins() {
+        mGameScreen.bitmapFont.draw(mGame.mSpriteBatch, "×" + mGameWorld.player.coinString(), 70f, Constants.GAME_HEIGHT - 7)
+    }
+
+    private fun renderGravityWarning() {
+        mGameScreen.bitmapFontBig.setColor(mGameWorld.coinTextColor)
+        mGameScreen.bitmapFontSmall.setColor(mGameWorld.coinTextColor)
+
+        mGameScreen.bitmapFontBig.draw(mGame.mSpriteBatch, mGameWorld.gravString, Constants.GAME_WIDTH / 2 - 50, Constants.GAME_HEIGHT / 2 + 140)
+        mGameScreen.bitmapFontSmall.draw(mGame.mSpriteBatch, mGameWorld.gravTextString, Constants.GAME_WIDTH / 2 -50, Constants.GAME_HEIGHT / 2 + 160f)
+        mGameScreen.bitmapFontBig.setColor(Color(1f,1f,1f,1f))
+        mGameScreen.bitmapFontSmall.setColor(Color(1f,1f,1f,1f))
+    }
+
+    fun renderGravity() {
         mGame.mShapeRenderer.begin(ShapeRenderer.ShapeType.Filled)
         mGame.mShapeRenderer.color = GameColors.GRAVITY_BAR
 
@@ -80,8 +106,13 @@ class GameRenderer(val mGame: AsmGdxGame, val mGameScreen: GameScreen, val mGame
         mGame.mShapeRenderer.end()
 
         mGame.mSpriteBatch.begin()
-        mGameScreen.bitmapFontSmall.draw(mGame.mSpriteBatch, mGameWorld.gravityHandler.currentGravity.toString(), mGameWorld.gravityHandler.getX() + mGameWorld.gravityHandler.sizeX() +10, mGameWorld.gravityHandler.getY() + 10f)
+        mGameScreen.bitmapFontSmall.draw(mGame.mSpriteBatch, mGameWorld.gravityHandler.currentGravity.toString(), mGameWorld.gravityHandler.getX() + mGameWorld.gravityHandler.sizeX() + 10, mGameWorld.gravityHandler.getY() + 10f)
         mGame.mSpriteBatch.end()
+    }
+
+    fun calculateWidth(string: String): Float {
+        val width = 20f
+        return string.length * width
     }
 
 }

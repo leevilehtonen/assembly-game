@@ -20,7 +20,7 @@ class Player(body: Body, texture: TextureRegion, val animation: PlayerAnimation)
     var points: Float = 0f
 
     override fun update(delta: Float) {
-        if(body.position.x * Constants.BOX_TO_WORLD > Constants.GAME_WIDTH) {
+        if (body.position.x * Constants.BOX_TO_WORLD > Constants.GAME_WIDTH) {
             body.setTransform(Constants.GAME_WIDTH * Constants.WORLD_TO_BOX, body.position.y, body.angle)
         }
         sprite.setPosition(Constants.BOX_TO_WORLD * body.position.x - sprite.width / 2, Constants.BOX_TO_WORLD * body.position.y - sprite.height / 2)
@@ -50,16 +50,39 @@ class Player(body: Body, texture: TextureRegion, val animation: PlayerAnimation)
                 }
             }
         }
+
+
+        applyForce()
     }
 
-    fun addCoin(){
+    fun applyForce() {
+        val width = Constants.GAME_WIDTH
+        val distance = Math.abs((sprite.x + sprite.width / 2) - width)
+        println(sprite.x)
+        var forceMultiplier = 1f / distance * 10
+        if (distance < width / 2) {
+            println("too far")
+            forceMultiplier *= -1
+        } else if(distance <= width / 2 + width / 4 && distance >=width / 2){
+            println("ideal")
+            forceMultiplier  = 0f
+        } else {
+            println("behind")
+        }
+
+        this.body.applyLinearImpulse(Vector2(Constants.PUSH_FORCE * forceMultiplier, 0f), body.position, true)
+
+    }
+
+    fun addCoin() {
         coins += 1
     }
 
-    fun coinString(): String{
-       return coins.toString()
+    fun coinString(): String {
+        return coins.toString()
     }
-    fun pointString(): String{
+
+    fun pointString(): String {
         return "Points: " + points.toInt()
     }
 
