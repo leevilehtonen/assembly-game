@@ -90,7 +90,5 @@ class GravityHandler(val mGameWorld: GameWorld) : Updateable {
         currentGBar = gBarValue[gravity]
         lastGravity = currentGravity
         currentGravity = gravity
-        println(mGameWorld.physicsWorld.world.gravity)
     }
-
 }
